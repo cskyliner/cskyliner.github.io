@@ -17,7 +17,7 @@
 {% endcapture %}
 
 {% capture not_found %}<p class="mt-5">{{ site.data.locales[include.lang].search.no_results }}</p>{% endcapture %}
-<!-- compress-html off -->
+<!-- htmlcompress off -->
 <script>
   {% comment %} Note: dependent library will be loaded in `js-selector.html` {% endcomment %}
   document.addEventListener('DOMContentLoaded', () => {
@@ -72,4 +72,4 @@ templateMiddleware: function(prop, value, template) {
     });
   });
 </script>
-<!-- compress-html on -->
+<!-- htmlcompress on -->
