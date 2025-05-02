@@ -27,23 +27,48 @@
       json: '{{ '/assets/js/data/search.json' | relative_url }}',
       searchResultTemplate: '{{ result_elem | strip_newlines }}',
       noResultsText: '{{ not_found }}',
-      templateMiddleware: function(prop, value, template) {
-        if (prop === 'categories') {
-          if (value === '') {
-            return `${value}`;
-          } else {
-            return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`;
-          }
-        }
+templateMiddleware: function(prop, value, template) {
+  const rawInput = document.getElementById("search-input").value.trim();
+  if (!rawInput) return value;
 
-        if (prop === 'tags') {
-          if (value === '') {
-            return `${value}`;
-          } else {
-            return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`;
-          }
-        }
-      }
+  const input = rawInput.toLowerCase(); // 统一小写比较
+
+  // 通用高亮函数
+  const highlightMatch = (str) => {
+    const lowerStr = str.toLowerCase();
+    const idx = lowerStr.indexOf(input);
+    if (idx === -1) return str;
+
+    let start = idx - 50;
+    if (start < 0) start = 0;
+    while (start > 0 && ![" ", "，", "。", "\n"].includes(str[start - 1])) start--;
+
+    let end = idx + input.length + 200;
+    if (end > str.length) end = str.length;
+
+    return (
+      str.substring(start, idx) +
+      `<mark style="background-color: rgba(255, 255, 153, 0.5);">${str.substring(idx, idx + rawInput.length)}</mark>` +
+      str.substring(idx + rawInput.length, end) +
+      '...'
+    );
+  };
+
+  // 各字段高亮逻辑
+  if (prop === 'title' || prop === 'content') {
+    return highlightMatch(value);
+  }
+
+  if (prop === 'categories') {
+    return value ? `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>` : '';
+  }
+
+  if (prop === 'tags') {
+    return value ? `<div><i class="fa fa-tag fa-fw"></i>${value}</div>` : '';
+  }
+
+  return value;
+}
     });
   });
 </script>
