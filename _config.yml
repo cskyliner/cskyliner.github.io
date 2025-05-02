@@ -121,9 +121,9 @@ comments:
   # Giscus options › https://giscus.app
   giscus:
     repo: cskyliner/cskyliner.github.io # <gh-username>/<repo>
-    repo_id: R_kgDOOi8xkg
+    repo_id: R_kgDOOjDECA
     category: Announcements
-    category_id: DIC_kwDOOi8xks4CprLy
+    category_id: DIC_kwDOOjDECM4Cpr73
     mapping: pathname # optional, default to 'pathname'
     strict: 1 # optional, default to '0'
     input_position: top # optional, default to 'bottom'
