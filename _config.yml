@@ -2,10 +2,10 @@ title: Ruolin Zuo
 first_name: You
 middle_name: R.
 last_name: Name
-contact_note: 'You can even add a little note about which of these is the best way
+contact_note: "You can even add a little note about which of these is the best way
   to reach you.
 
-  '
+  "
 description: Ruolin Zuo's personal website.
 footer_text: 'Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
   with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme. Hosted
@@ -17,7 +17,7 @@ keywords: jekyll, jekyll-theme, academic-website, portfolio-website
 lang: en
 icon: ⚛️
 url: https://cskyliner.top
-baseurl: ''
+baseurl: ""
 last_updated: false
 impressum_path: null
 back_to_top: true
@@ -70,20 +70,20 @@ giscus:
   lang: en
 disqus_shortname: al-folio
 external_sources:
-- name: medium.com
-  rss_url: https://medium.com/@al-folio/feed
-  categories:
-  - external-posts
-  tags:
-  - medium
-- name: Google Blog
-  posts:
-  - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-    published_date: 2024-05-14
-  categories:
-  - external-posts
-  tags:
-  - google
+  - name: medium.com
+    rss_url: https://medium.com/@al-folio/feed
+    categories:
+      - external-posts
+    tags:
+      - medium
+  - name: Google Blog
+    posts:
+      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
+        published_date: 2024-05-14
+    categories:
+      - external-posts
+    tags:
+      - google
 newsletter:
   enabled: false
   endpoint: null
@@ -110,111 +110,111 @@ kramdown:
       line_numbers: false
       start_line: 1
 include:
-- _pages
-- _scripts
+  - _pages
+  - _scripts
 exclude:
-- bin/
-- CONTRIBUTING.md
-- CUSTOMIZE.md
-- Dockerfile
-- docker-compose.yml
-- docker-compose-slim.yml
-- FAQ.md
-- Gemfile
-- Gemfile.lock
-- INSTALL.md
-- LICENSE
-- lighthouse_results/
-- package.json
-- package-lock.json
-- _pages/about_einstein.md
-- purgecss.config.js
-- README.md
-- readme_preview/
-- vendor
+  - bin/
+  - CONTRIBUTING.md
+  - CUSTOMIZE.md
+  - Dockerfile
+  - docker-compose.yml
+  - docker-compose-slim.yml
+  - FAQ.md
+  - Gemfile
+  - Gemfile.lock
+  - INSTALL.md
+  - LICENSE
+  - lighthouse_results/
+  - package.json
+  - package-lock.json
+  - _pages/about_einstein.md
+  - purgecss.config.js
+  - README.md
+  - readme_preview/
+  - vendor
 keep_files:
-- CNAME
-- .nojekyll
+  - CNAME
+  - .nojekyll
 plugins:
-- jekyll-3rd-party-libraries
-- jekyll-archives-v2
-- jekyll-cache-bust
-- jekyll-email-protect
-- jekyll-feed
-- jekyll-get-json
-- jekyll-imagemagick
-- jekyll-jupyter-notebook
-- jekyll-link-attributes
-- jekyll-minifier
-- jekyll-paginate-v2
-- jekyll-regex-replace
-- jekyll/scholar
-- jekyll-sitemap
-- jekyll-socials
-- jekyll-tabs
-- jekyll-terser
-- jekyll-toc
-- jekyll-twitter-plugin
-- jemoji
+  - jekyll-3rd-party-libraries
+  - jekyll-archives-v2
+  - jekyll-cache-bust
+  - jekyll-email-protect
+  - jekyll-feed
+  - jekyll-get-json
+  - jekyll-imagemagick
+  - jekyll-jupyter-notebook
+  - jekyll-link-attributes
+  - jekyll-minifier
+  - jekyll-paginate-v2
+  - jekyll-regex-replace
+  - jekyll/scholar
+  - jekyll-sitemap
+  - jekyll-socials
+  - jekyll-tabs
+  - jekyll-terser
+  - jekyll-toc
+  - jekyll-twitter-plugin
+  - jemoji
 defaults:
-- scope:
-    path: assets
-  values:
-    sitemap: false
+  - scope:
+      path: assets
+    values:
+      sitemap: false
 sass:
   style: compressed
 jekyll-minifier:
   compress_javascript: false
   exclude:
-  - robots.txt
-  - assets/js/search/*.js
+    - robots.txt
+    - assets/js/search/*.js
 terser:
   compress:
     drop_console: true
 jekyll-archives:
   posts:
     enabled:
-    - year
-    - tags
-    - categories
+      - year
+      - tags
+      - categories
     permalinks:
       year: /blog/:year/
       tags: /blog/:type/:name/
       categories: /blog/:type/:name/
   books:
     enabled:
-    - year
-    - tags
-    - categories
+      - year
+      - tags
+      - categories
 display_tags:
-- formatting
-- images
-- links
-- math
-- code
-- blockquotes
+  - formatting
+  - images
+  - links
+  - math
+  - code
+  - blockquotes
 display_categories:
-- external-services
+  - external-services
 scholar:
   last_name:
-  - Einstein
+    - Einstein
   first_name:
-  - Albert
-  - A.
+    - Albert
+    - A.
   style: apa
   locale: en
   source: /_bibliography/
   bibliography: papers.bib
   bibliography_template: bib
   bibtex_filters:
-  - latex
-  - smallcaps
-  - superscript
+    - latex
+    - smallcaps
+    - superscript
   replace_strings: true
   join_strings: true
   details_dir: bibliography
   details_link: Details
-  query: '@*'
+  query: "@*"
   group_by: year
   group_order: descending
 enable_publication_badges:
@@ -223,32 +223,32 @@ enable_publication_badges:
   google_scholar: true
   inspirehep: true
 filtered_bibtex_keywords:
-- abbr
-- abstract
-- additional_info
-- altmetric
-- annotation
-- arxiv
-- award
-- award_name
-- bibtex_show
-- blog
-- code
-- dimensions
-- eprint
-- google_scholar_id
-- hal
-- html
-- inspirehep_id
-- pdf
-- pmid
-- poster
-- preview
-- selected
-- slides
-- supp
-- video
-- website
+  - abbr
+  - abstract
+  - additional_info
+  - altmetric
+  - annotation
+  - arxiv
+  - award
+  - award_name
+  - bibtex_show
+  - blog
+  - code
+  - dimensions
+  - eprint
+  - google_scholar_id
+  - hal
+  - html
+  - inspirehep_id
+  - pdf
+  - pmid
+  - poster
+  - preview
+  - selected
+  - slides
+  - supp
+  - video
+  - website
 max_author_limit: 3
 more_authors_animation_delay: 10
 enable_publication_thumbnails: true
@@ -260,17 +260,17 @@ external_links:
 imagemagick:
   enabled: true
   widths:
-  - 480
-  - 800
-  - 1400
+    - 480
+    - 800
+    - 1400
   input_directories:
-  - assets/img/
+    - assets/img/
   input_formats:
-  - .jpg
-  - .jpeg
-  - .png
-  - .tiff
-  - .gif
+    - .jpg
+    - .jpeg
+    - .png
+    - .tiff
+    - .gif
   output_formats:
     webp: -auto-orient -quality 85
 lazy_loading_images: true
@@ -447,7 +447,7 @@ third_party_libraries:
   polyfill:
     url:
       js: https://cdnjs.cloudflare.com/polyfill/v{{version}}/polyfill.min.js?features=es6
-    version: '3'
+    version: "3"
   pseudocode:
     integrity:
       css: sha256-VwMV//xgBPDyRFVSOshhRhzJRDyBmIACniLPpeXNUdc=
@@ -520,21 +520,21 @@ third_party_libraries:
       js: https://cdn.jsdelivr.net/npm/venobox@{{version}}/dist/venobox.min.js
     version: 2.1.8
 jekyll_get_json:
-- data: resume
-  json: assets/json/resume.json
+  - data: resume
+    json: assets/json/resume.json
 jsonresume:
-- basics
-- work
-- education
-- publications
-- projects
-- volunteer
-- awards
-- certificates
-- skills
-- languages
-- interests
-- references
+  - basics
+  - work
+  - education
+  - publications
+  - projects
+  - volunteer
+  - awards
+  - certificates
+  - skills
+  - languages
+  - interests
+  - references
 author:
   name: Ruolin Zuo
   email: zkylin.cs@gmail.com
