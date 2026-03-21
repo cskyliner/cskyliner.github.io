@@ -17,7 +17,7 @@ tags:
 
 ## Overview
 
-A neural physics subspaces project that reproduces the paper *"Neural Physics Subspaces"* using a modern C++/Python hybrid architecture. The system combines physical simulation with learned subspaces for efficient dynamics computation.
+A neural physics subspaces project that reproduces the paper _"Neural Physics Subspaces"_ using a modern C++/Python hybrid architecture. The system combines physical simulation with learned subspaces for efficient dynamics computation.
 
 ## Tech Stack
 

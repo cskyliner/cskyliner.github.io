@@ -3,7 +3,7 @@ layout: distill
 title: 自然语言处理-RNN&Transformer
 date: 2025-05-01 10:00:00
 description: 基于神经网络的自然语言处理方法，包括 RNN 与 Transformer 架构详解
-categories: [AIIntro,notes]
+categories: [AIIntro, notes]
 tags: [NLP]
 math: true
 mermaid: true

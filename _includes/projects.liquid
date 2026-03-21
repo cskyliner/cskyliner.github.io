@@ -15,33 +15,33 @@
         <h2 class="card-title">{{ project.title }}</h2>
         <p class="card-text">{{ project.description }}</p>
         {% if project.github or project.arxiv or project.site or project.doc or project.release %}
-        <div class="project-links mt-2">
-          {% if project.github %}
-          <a class="project-link-badge" href="{{ project.github }}" target="_blank" rel="noopener" title="GitHub">
-            <i class="fa-brands fa-github"></i> GitHub
-          </a>
-          {% endif %}
-          {% if project.arxiv %}
-          <a class="project-link-badge" href="{{ project.arxiv }}" target="_blank" rel="noopener" title="arXiv">
-            <i class="fa-solid fa-file-lines"></i> arXiv
-          </a>
-          {% endif %}
-          {% if project.site %}
-          <a class="project-link-badge" href="{{ project.site }}" target="_blank" rel="noopener" title="Site">
-            <i class="fa-solid fa-globe"></i> Site
-          </a>
-          {% endif %}
-          {% if project.doc %}
-          <a class="project-link-badge" href="{{ project.doc }}" target="_blank" rel="noopener" title="Documentation">
-            <i class="fa-solid fa-book"></i> Doc
-          </a>
-          {% endif %}
-          {% if project.release %}
-          <a class="project-link-badge" href="{{ project.release }}" target="_blank" rel="noopener" title="Release">
-            <i class="fa-solid fa-download"></i> Release
-          </a>
-          {% endif %}
-        </div>
+          <div class="project-links mt-2">
+            {% if project.github %}
+              <a class="project-link-badge" href="{{ project.github }}" target="_blank" rel="noopener" title="GitHub">
+                <i class="fa-brands fa-github"></i> GitHub
+              </a>
+            {% endif %}
+            {% if project.arxiv %}
+              <a class="project-link-badge" href="{{ project.arxiv }}" target="_blank" rel="noopener" title="arXiv">
+                <i class="fa-solid fa-file-lines"></i> arXiv
+              </a>
+            {% endif %}
+            {% if project.site %}
+              <a class="project-link-badge" href="{{ project.site }}" target="_blank" rel="noopener" title="Site">
+                <i class="fa-solid fa-globe"></i> Site
+              </a>
+            {% endif %}
+            {% if project.doc %}
+              <a class="project-link-badge" href="{{ project.doc }}" target="_blank" rel="noopener" title="Documentation">
+                <i class="fa-solid fa-book"></i> Doc
+              </a>
+            {% endif %}
+            {% if project.release %}
+              <a class="project-link-badge" href="{{ project.release }}" target="_blank" rel="noopener" title="Release">
+                <i class="fa-solid fa-download"></i> Release
+              </a>
+            {% endif %}
+          </div>
         {% endif %}
       </div>
     </div>
