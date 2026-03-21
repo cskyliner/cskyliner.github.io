@@ -11,14 +11,14 @@ ninja.data = [{
     },
   },{id: "nav-blog",
           title: "Blog",
-          description: "",
+          description: "Blog posts on AI, machine learning, and technology.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/blog/";
           },
         },{id: "nav-cv",
           title: "CV",
-          description: "",
+          description: "Curriculum Vitae of Ruolin Zuo, AI student at Peking University.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/cv/";
