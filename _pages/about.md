@@ -2,11 +2,10 @@
 layout: about
 title: About
 permalink: /
-subtitle: "Junior undergraduate student in the School of Intelligence Science at Peking University."
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: PIA19964.jpg
   image_circular: false # crops the image to make it circular
   more_info:
 
@@ -17,11 +16,11 @@ social: true # includes social icons at the bottom of the page
 
 # About
 
-Ruolin Zuo is a junior undergraduate student in the School of Intelligence Science at Peking University, majoring in Artificial Intelligence.
+I am an undergraduate student majoring in Artificial Intelligence from the School of Electronic Engineering and Computer Science at Peking University.
 
 ## Education
 
-- **B.S. in Artificial Intelligence (Smart Science)**, Peking University, 2024–present
+- **B.S. in Artificial Intelligence**, Peking University, 2024–present
 
 ## Links
 

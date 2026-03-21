@@ -1,15 +1,12 @@
-title: Ruolin Zuo
+title: cskyliner
 first_name: Ruolin
 middle_name: ""
 last_name: Zuo
 contact_note: ""
-description: Ruolin Zuo's personal website.
+description: cskyliner's personal website.
 footer_text: 'Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a>
   with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme. Hosted
-  by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>. Photos
-  from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-
-  '
+  by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.'
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website
 lang: en
 icon: ⚛️
@@ -25,8 +22,8 @@ repo_trophies:
   theme_light: flat
   theme_dark: gitdimmed
 external_services:
-  github_readme_stats_url: https://github-readme-stats.vercel.app
-  github_profile_trophy_url: https://github-profile-trophy.vercel.app
+  github_readme_stats_url: https://github-readme-stats-py.vercel.app
+  github_profile_trophy_url: https://github-profile-trophy-py.vercel.app
 navbar_fixed: true
 footer_fixed: true
 search_enabled: true
@@ -43,8 +40,8 @@ pirsch_analytics: null
 openpanel_analytics: null
 google_site_verification: null
 bing_site_verification: null
-blog_name: al-folio
-blog_description: a simple whitespace theme for academics
+blog_name: Blog
+blog_description: A blank space for writing and thinking.
 permalink: /blog/:year/:title/
 lsi: false
 pagination:
@@ -53,34 +50,20 @@ related_blog_posts:
   enabled: true
   max_related: 5
 giscus:
-  repo: null
-  repo_id: null
-  category: Comments
-  category_id: null
+  repo: cskyliner/cskyliner.github.io
+  repo_id: R_kgDORsxewA
+  category: General
+  category_id: DIC_kwDORsxewM4C46x2
   mapping: title
   strict: 1
   reactions_enabled: 1
-  input_position: bottom
+  input_position: top
   dark_theme: dark
   light_theme: light
   emit_metadata: 0
   lang: en
-disqus_shortname: al-folio
+disqus_shortname:
 external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
-    categories:
-      - external-posts
-    tags:
-      - medium
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
-    categories:
-      - external-posts
-    tags:
-      - google
 newsletter:
   enabled: false
   endpoint: null
@@ -92,7 +75,7 @@ collections:
       layout: post
     output: true
   projects:
-    output: true
+    output: false
   teachings:
     output: true
 markdown: kramdown
@@ -184,14 +167,13 @@ jekyll-archives:
       - tags
       - categories
 display_tags:
-  - formatting
-  - images
-  - links
-  - math
-  - code
-  - blockquotes
+  - NLP
+  - CV
+  - RL
+  - 3D
+  - LLM
 display_categories:
-  - external-services
+  - Notes
 scholar:
   last_name:
     - Einstein
@@ -541,9 +523,9 @@ comments:
   provider: giscus
   giscus:
     repo: cskyliner/cskyliner.github.io
-    repo_id: R_kgDOOjDECA
-    category: Announcements
-    category_id: DIC_kwDOOjDECM4Cpr73
+    repo_id: R_kgDORsxewA
+    category: General
+    category_id: DIC_kwDORsxewM4C46x2
     mapping: pathname
     strict: 1
     input_position: top

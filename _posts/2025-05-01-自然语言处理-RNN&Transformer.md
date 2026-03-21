@@ -1,15 +1,29 @@
 ---
-layout: post
+layout: distill
 title: 自然语言处理-RNN&Transformer
-date: 2025-05-01
-categories: [人工智能引论]
-tags: [RNN, Transformer, 自然语言处理]
+date: 2025-05-01 10:00:00
+description: 基于神经网络的自然语言处理方法，包括 RNN 与 Transformer 架构详解
+categories: [AIIntro,notes]
+tags: [NLP]
 math: true
 mermaid: true
 author: Ruolin Zuo
+giscus_comments: true
+toc:
+  - name: 基于神经网络的自然语言处理方法
+  - name: 递归神经网络（RNN）
+  - name: Transformer
+    subsections:
+      - name: 注意力机制
+        subsections:
+          - name: 意义阐述
+          - name: 多头注意力
+      - name: 位置编码
+      - name: 残差连接与layer normalization
+      - name: Encoder与decoder
 ---
 
-# 基于神经网络的自然语言处理方法
+## 基于神经网络的自然语言处理方法
 
 区别在于对于特征的处理不同
 
@@ -19,7 +33,7 @@ author: Ruolin Zuo
   - 需要设定前词的窗口大小，如选择三个前词，输入这三个前词的独热向量
 - **递归神经语言模型**：基于前词上下文预测接下来的词
 
-# 递归神经网络（RNN）
+## 递归神经网络（RNN）
 
 为了解决MLP等Vanilla Neural Network对前后依赖关系不能很好描述的缺点，在传统神经网络基础上，加入了隐状态——即为过去的输入上下文。
 
@@ -27,9 +41,9 @@ author: Ruolin Zuo
 
 ```mermaid
 flowchart LR
-    x_t["xₜ"] --> RNN[RNN]
-    RNN --> h_t["hₜ"]
-    h_t -->|feedback| RNN
+    xt["xₜ"] --> RNN[RNN]
+    RNN --> ht["hₜ"]
+    ht -->|feedback| RNN
 ```
 
 可以看出递归之意，每次的输出都作为隐状态叠加新输入重新输入到RNN中。
@@ -61,11 +75,11 @@ RNN的缺点:
 
     - 很难处理长距离依赖（由于梯度衰减问题）
 
-# Transformer
+## Transformer
 
 **为了解决**：
 
-1. **长期依赖问题**：信息随时间步“稀释”，远处信息难以传递；
+1. **长期依赖问题**：信息随时间步"稀释"，远处信息难以传递；
 2. **无法并行计算**：必须按时间顺序逐步处理，效率低下。
 
 提出了transformer架构，主要改变在seq2seq的机制
@@ -77,7 +91,7 @@ RNN的缺点:
 - 编码器把所有隐状态都传给解码器
 - 解码器基于注意力机制对所有隐状态进行加权求和
 
-## 注意力机制
+### 注意力机制
 
 对每个输入的词嵌入表示向量$x_i$提供三个映射：
 
@@ -98,7 +112,7 @@ $$
 - $d_k$为词嵌入维数（normalize）
 - $z_i$即为该位置的新表示向量
 
-### 意义阐述
+#### 意义阐述
 
 模型学习$W^Q$来表示该词当前语境下希望从上下文中**获取何种信息**（语义需求）。如在情感分析中，词 "very"可能更关注被它修饰的词（如"good"）的情感强度，“good”则更多关注修饰词（good被修饰时候具有情感倾向的信息由Key提取，情感具体的正负与强度特征则由Value提取）。
 
@@ -112,7 +126,7 @@ $$
 
 这个过程使得模型获得某种**attention**，动态了解某个词在某种情景下更匹配哪些上下文，不是仅仅按照顺序“注意”上下文，而是“注意”那些完成特定任务所需要的关键的“词联系”，进而能够在输入相关词时激活上下文中关联密切的词（赋予其高权重），获得重要的复杂特征，将原普通嵌入序列向量转化为与任务情景高相关的序列向量，实现了常规递归结构无法做到的广视域和长上下文提取信息能力，提高了表达能力。
 
-### 多头注意力
+#### 多头注意力
 
 将多个单头注意力并行计算，注意$W^Q_i, W^K_i, W^V_i \in \mathbb{R}^{d \times d_k} \quad d_k = d / h$，最后normolize的时候也要将原来的d变为d/h（h为头数），然后将它们的输出拼接起来
 
@@ -124,7 +138,7 @@ $$
 
 目的在于使用不同的三映射获得词语不同方面的意义信息，学习**不同的相似度函数与注意力方向**
 
-## 位置编码
+### 位置编码
 
 RNN因为递归，天然具有词汇位置顺序信息，而transformer没有，因此需要额外的机制来引入词序信息。
 
@@ -143,12 +157,12 @@ $$
 
 **在嵌入时逐元素加入原嵌入函数**
 
-## 残差连接与layer normalization
+### 残差连接与layer normalization
 
 - 和ResNet一样，利用残差连接能够帮助Transformer更好的训练。
 - 类似于CNN中使用批归一化，Transformer使用层归一化帮助训练。
 
-## Encoder与decoder
+### Encoder与decoder
 
 **前馈神经网络**：类似于MLP，CNN中的激活函数，将每个词的上下文向量进行一次非线性变换，增强表达能力。如Multilayer Perceptron(MLP)，最基本的前馈神经网络，由多个全连接层（linear/fully connected layers）组成，每层通常配有激活函数（如ReLU）。
 
