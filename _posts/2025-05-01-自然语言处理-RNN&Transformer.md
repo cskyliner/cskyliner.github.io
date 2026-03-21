@@ -1,4 +1,5 @@
 ---
+layout: post
 title: 自然语言处理-RNN&Transformer
 date: 2025-05-01
 categories: [人工智能引论]
