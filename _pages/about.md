@@ -2,6 +2,7 @@
 layout: about
 title: About
 permalink: /
+description: Personal website of Ruolin Zuo, B.S. in AI at Peking University.
 
 profile:
   align: right
