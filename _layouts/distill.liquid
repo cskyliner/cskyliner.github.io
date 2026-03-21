@@ -57,7 +57,7 @@
     {% include header.liquid %}
 
     <!-- Content -->
-    <div class="post distill">
+    <div class="post distill" data-pagefind-body>
       <d-title>
         <h1>{{ page.title }}</h1>
         <p>{{ page.description }}</p>
@@ -107,7 +107,7 @@
 
       <d-bibliography src="{{ page.bibliography | prepend: '/assets/bibliography/' | relative_url }}"></d-bibliography>
 
-      <d-article>
+      <d-article data-pagefind-ignore>
         {% if site.related_blog_posts and site.related_blog_posts.enabled %}
           {% if page.related_posts == null or page.related_posts %}
             {% include related_posts.liquid %}

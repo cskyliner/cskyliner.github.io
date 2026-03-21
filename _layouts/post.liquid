@@ -13,7 +13,7 @@ layout: default
   </style>
 {% endif %}
 
-<div class="post">
+<div class="post" data-pagefind-body>
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">
@@ -76,22 +76,28 @@ layout: default
   {% endif %}
 
   {% if page.related_publications %}
-    <h2>References</h2>
-    <div class="publications">
-      {% bibliography --group_by none --cited_in_order %}
+    <div data-pagefind-ignore>
+      <h2>References</h2>
+      <div class="publications">
+        {% bibliography --group_by none --cited_in_order %}
+      </div>
     </div>
   {% endif %}
 
   {% if site.related_blog_posts and site.related_blog_posts.enabled %}
     {% if page.related_posts == null or page.related_posts %}
-      {% include related_posts.liquid %}
+      <div data-pagefind-ignore>
+        {% include related_posts.liquid %}
+      </div>
     {% endif %}
   {% endif %}
 
-  {% if site.disqus_shortname and page.disqus_comments %}
-    {% include disqus.liquid %}
-  {% endif %}
-  {% if site.giscus and page.giscus_comments %}
-    {% include giscus.liquid %}
-  {% endif %}
+  <div data-pagefind-ignore>
+    {% if site.disqus_shortname and page.disqus_comments %}
+      {% include disqus.liquid %}
+    {% endif %}
+    {% if site.giscus and page.giscus_comments %}
+      {% include giscus.liquid %}
+    {% endif %}
+  </div>
 </div>

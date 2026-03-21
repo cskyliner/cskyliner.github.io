@@ -100,7 +100,7 @@ jobs:
           purgecss -c purgecss.config.js
       - name: Build Pagefind index 🔍
         run: |
-          npx pagefind --site _site --output-path _site/pagefind
+          npx pagefind
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4
