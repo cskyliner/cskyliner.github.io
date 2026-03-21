@@ -2,10 +2,10 @@
 # Docs: https://pagefind.app/docs/config-options/
 
 # Source directory (Jekyll build output)
-source: _site
+site: _site
 
-# Output directory for Pagefind index (relative to source)
-bundle_dir: pagefind
+# Output subdirectory for Pagefind index (relative to site)
+output_subdir: pagefind
 
 # Force Chinese language for proper segmentation/tokenization
 # This enables Pagefind's built-in Chinese word segmentation (jieba-based)
