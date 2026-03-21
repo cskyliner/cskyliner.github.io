@@ -26,5 +26,3 @@ I am an undergraduate student majoring in Artificial Intelligence from the Schoo
 
 - [GitHub](https://github.com/cskyliner)
 - [Email](mailto:zkylin.cs@gmail.com)
-
-<p><iframe src="https://mapmyvisitors.com/map/487eny22cGJNDCB79K94xpp3YbiK32bNW9r1rUWb8IA?theme=light&bg=transparent&h=150" style="border: none; width: 100%; height: 150px;"></iframe></p>
