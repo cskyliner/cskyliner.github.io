@@ -4,7 +4,7 @@
     h_t --&gt;|feedback| RNN
 </code></pre> <p>可以看出递归之意，每次的输出都作为隐状态叠加新输入重新输入到RNN中。</p> \[h_t = f_W(h_{t-1},x_t)\] <ul> <li>W为参数</li> <li>$h_t$为新状态,$h_{t-1}$为旧状态</li> <li>$x_t$为某一步输入</li> </ul> <p>具体模型构建一般由：</p> <ol> <li>嵌入层：输入长度为m的词索引向量$[52,12,31,…,123]$，根据构建好的词表，将每个词索引转变为一个n维向量，即从整数到n维向量的映射，输出$m \times n$大小的矩阵。这里的词表可以自己训练，但一般情况下使用前文提到的word2vec等预训练模型得到的词向量</li> <li>RNN层：即递归网络</li> <li>FC层：全连接</li> <li>输出层：</li> </ol> <p>RNN的优点：</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 能够处理任意长度数据
 
-- 输入变长，模型大小不变 
+- 输入变长，模型大小不变
 </code></pre></div></div> <p>RNN的缺点:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 未来状态的计算依赖于过去的状态（无法并行计算）
 
 - 很难处理长距离依赖（由于梯度衰减问题）
