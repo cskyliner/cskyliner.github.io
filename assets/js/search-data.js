@@ -23,13 +23,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "nav-projects",
-          title: "Projects",
-          description: "A growing collection of my academic and personal projects.",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/projects/";
-          },
         },{id: "nav-search",
           title: "Search",
           description: "Full-text search across all content",
@@ -100,7 +93,17 @@ ninja.data = [{
             },},{id: "news-a-simple-inline-announcement-with-markdown-emoji-sparkles-smile",
           title: 'A simple inline announcement with Markdown emoji! :sparkles: :smile:',
           description: "",
-          section: "News",},{id: "projects-neural-physics-subspaces",
+          section: "News",},{id: "projects-chronosflow",
+          title: 'ChronosFlow',
+          description: "基于 PySide6 的跨平台时间管理应用,支持AI日程规划助手",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/chronosflow/";
+            },},{id: "projects-gobang",
+          title: 'GoBang',
+          description: "A Qt-based GoBang game project, PKU Introduction to Computing 24fall project",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/gobang/";
+            },},{id: "projects-neural-physics-subspaces",
           title: 'Neural Physics Subspaces',
           description: "基于 XMAKE + Imgui + OpenGL + pybind11 的神经物理子空间研究项目，复现论文 neural-physics-subspaces",
           section: "Projects",handler: () => {
