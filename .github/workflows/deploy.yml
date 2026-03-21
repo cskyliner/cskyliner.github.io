@@ -98,9 +98,10 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      - name: Build Pagefind index 🔍
-        run: |
-          npx pagefind
+      - name: Install dependencies 📦
+        run: npm install
+      - name: Build search index 🔍
+        run: node scripts/build-search-index.js
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

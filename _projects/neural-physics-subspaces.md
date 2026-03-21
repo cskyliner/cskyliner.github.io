@@ -6,7 +6,7 @@ github: https://github.com/cskyliner/neural-physics-subspaces
 arxiv: https://arxiv.org/abs/2305.03846
 redirect: https://github.com/cskyliner/neural-physics-subspaces
 importance: 1
-category: research
+category: coursework
 tags:
   - C++
   - Python

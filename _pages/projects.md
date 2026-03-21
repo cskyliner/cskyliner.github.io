@@ -3,11 +3,22 @@ layout: page
 permalink: /projects/
 title: Projects
 description: A growing collection of my academic and personal projects.
-nav: true
+nav: false
 nav_order: 4
 display_categories: [research, coursework, fun]
 horizontal: false
 ---
+
+## GitHub Stats
+
+<div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start;">
+  <div>
+    <img src="https://github-readme-stats.vercel.app/api?username=cskyliner&show_icons=true&theme=transparent&hide_rank=true" alt="GitHub Stats">
+  </div>
+  <div>
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=cskyliner&theme=transparent&layout=compact&hide_rank=true" alt="Top Langs">
+  </div>
+</div>
 
 <style>
   .project-link-badge {
