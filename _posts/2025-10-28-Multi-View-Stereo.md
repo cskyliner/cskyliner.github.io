@@ -24,7 +24,7 @@ Basic Idea：图像间的密集对应关系
 
 ### Plane-Sweeping Stereo
 
-![[image-38.png|529x262]]
+![image-38.png](/assets/img/posts/CV/image-38.png)
 
 ## Depth Map based MVS
 
@@ -32,7 +32,7 @@ Basic Idea：图像间的密集对应关系
 
 我们已知怎么从两张图获得深度图，因此我们两两取对计算深度图，随后融合深度图。不过这时的两两计算应该减少局部约束比如平滑去噪，详情见下图：
 
-![[image-39.png|602x292]]
+![image-39.png](/assets/img/posts/CV/image-39.png)
 
 + 当两张图的时候因为视角限制，无法看到部分区域会出现“漏洞”，因此我们进行平滑处理，但是如果我们有多张图，我们可以通过多张图的深度信息进行补全，从而减少平滑处理带来的误差，此时如果提前平滑会丢失一些细节，因此我们应该先计算深度图，随后再进行融合和平滑处理
 
@@ -44,7 +44,7 @@ Basic Idea：图像间的密集对应关系
 
 Patch 是图像中的一个小区域，通常是一个矩形或正方形区域，包含多个像素点（类似于卷积），而且同时包含了该区域面的法向量信息。一方面 patch 不至于过大，我们可以用平面 patch 拟合整体曲面，而平面方便操作计算；另一方面 Patch 又包含了范围信息，对像素的连续性加了较强约束。下图展示了从标准 3D 信息中进行 Patch 重建和点重建的区别：
 
-![[image-40.png]]
+![image-40.png](/assets/img/posts/CV/image-40.png)
 
 ### Patch Similarity
 

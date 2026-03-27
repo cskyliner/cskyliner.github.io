@@ -171,4 +171,4 @@ $$
 | **密度估计**  | 显式 (Explicit)                 | 近似 (Approximate) | 隐式 (Implicit)        | 近似/显式                |
 | **主要缺陷**  | 推理慢                           | 图像模糊             | 模式坍塌 (Mode Collapse) | 计算成本高                |
 
-![[image-77.png]]
+![image-77.png](/assets/img/posts/CV/image-77.png)
