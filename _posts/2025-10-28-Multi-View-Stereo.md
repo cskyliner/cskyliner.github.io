@@ -4,14 +4,27 @@ title: 计算机视觉-Multi-View Stereo (MVS)
 date: 2025-10-28 20:00:00
 description: 多视角立体视觉技术，从校准图片构建稠密 3D 模型
 categories: [CV, notes]
-tags: ['CV', '3D Reconstruction', 'MVS']
+tags: ["CV", "3D Reconstruction", "MVS"]
 math: true
 mermaid: true
 author: Kylin
 giscus_comments: true
 toc:
-  - name: 概览
+  - name: Multi-View Stereo
+  - name: Silhouette-based MVS
+    subsections:
+      - name: Visual Hull
+      - name: Plane-Sweeping Stereo
+  - name: Depth Map based MVS
+  - name: Patch-based MVS
+    subsections:
+      - name: What is Patch?
+      - name: Patch Similarity
+      - name: Procedure
+  - name: Neural Radiant Fields (NeRF)
+  - name: Gaussian Splatting
 ---
+
 ## Multi-View Stereo
 
 输入经过 Calibrated 的多张图片（保证完整性），输出稠密的 3D 重建模型（Voxel、Mesh、Points Cloud）
@@ -34,7 +47,7 @@ Basic Idea：图像间的密集对应关系
 
 ![image-39.png](/assets/img/posts/CV/image-39.png)
 
-+ 当两张图的时候因为视角限制，无法看到部分区域会出现“漏洞”，因此我们进行平滑处理，但是如果我们有多张图，我们可以通过多张图的深度信息进行补全，从而减少平滑处理带来的误差，此时如果提前平滑会丢失一些细节，因此我们应该先计算深度图，随后再进行融合和平滑处理
+- 当两张图的时候因为视角限制，无法看到部分区域会出现“漏洞”，因此我们进行平滑处理，但是如果我们有多张图，我们可以通过多张图的深度信息进行补全，从而减少平滑处理带来的误差，此时如果提前平滑会丢失一些细节，因此我们应该先计算深度图，随后再进行融合和平滑处理
 
 ## Patch-based MVS
 
@@ -72,8 +85,8 @@ $$
 
 随后我们对 Patch 进行拓展和过滤：
 
-+ Patch Extension：我们通过初始 Patch 进行拓展，生成新的 Patch，随后进行优化。具体来说我们选择一个已经优化的 Patch，检查其映射后的邻域，如果邻域内没有 Patch，我们就生成一个新的 Patch（初始化时复制原已优化 Patch），随后进行优化。直到我们无法生成新的 Patch 为止。
-+ Patch Filtering：我们通过一致性函数对 Patch 进行过滤，去除那些一致性较差的 Patch，从而提高最终重建的质量。还有遮挡的 Patch 也会被去除。
+- Patch Extension：我们通过初始 Patch 进行拓展，生成新的 Patch，随后进行优化。具体来说我们选择一个已经优化的 Patch，检查其映射后的邻域，如果邻域内没有 Patch，我们就生成一个新的 Patch（初始化时复制原已优化 Patch），随后进行优化。直到我们无法生成新的 Patch 为止。
+- Patch Filtering：我们通过一致性函数对 Patch 进行过滤，去除那些一致性较差的 Patch，从而提高最终重建的质量。还有遮挡的 Patch 也会被去除。
 
 ## Neural Radiant Fields (NeRF)
 
@@ -103,7 +116,7 @@ $$
 I(L) = \sum_{i=1}^{N} \prod_{j=1}^{i-1} (1 - \alpha_j) c_i \alpha_i
 $$
 
-+ 理解为：每一小段的颜色 $c_i$ 乘以该段的不透明度 $\alpha_i$，再乘以前面所有段的透明度 $\prod_{j=1}^{i-1} (1 - \alpha_i)$，最后对所有小段进行求和。
+- 理解为：每一小段的颜色 $c_i$ 乘以该段的不透明度 $\alpha_i$，再乘以前面所有段的透明度 $\prod_{j=1}^{i-1} (1 - \alpha_i)$，最后对所有小段进行求和。
 
 随后我们通过神经网络来预测密度 $\tau(s)$ 和颜色 $c(s)$ ，具体来说，我们将位置 s 和视角方向 d 作为输入，经过一个多层感知机 (MLP) 网络，输出密度：
 
