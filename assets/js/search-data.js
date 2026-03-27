@@ -44,7 +44,40 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-知识图谱",
+            },{id: "post-计算机视觉-图像生成模型",
+        
+          title: "计算机视觉-图像生成模型",
+        
+        description: "生成模型全景图：自回归模型，VAE，GAN与扩散模型原理解析",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/Image-Generation/";
+          
+        },
+      },{id: "post-计算机视觉-multi-view-stereo-mvs",
+        
+          title: "计算机视觉-Multi-View Stereo (MVS)",
+        
+        description: "多视角立体视觉技术，从校准图片构建稠密 3D 模型",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/Multi-View-Stereo/";
+          
+        },
+      },{id: "post-计算机视觉-structure-from-motion-sfm",
+        
+          title: "计算机视觉-Structure from Motion (SFM)",
+        
+        description: "深入解析运动恢复结构 (SFM) 算法，探讨相机标定与三维点云重建原理",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/Structure-from-Motion/";
+          
+        },
+      },{id: "post-知识图谱",
         
           title: "知识图谱",
         
