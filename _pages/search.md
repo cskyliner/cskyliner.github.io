@@ -15,4 +15,4 @@ nav_order: 5
   <div id="search-results"></div>
   <button id="search-more" type="button" hidden>Load more</button>
 </div>
-<script type="module" src="{{ '/assets/js/fulltext-search.js' | relative_url }}"></script>
+<script type="module" src="{{ '/assets/js/fulltext-search.js' | relative_url | bust_file_cache }}"></script>
