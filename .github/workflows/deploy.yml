@@ -9,6 +9,7 @@ on:
       - "assets/**"
       - "_sass/**"
       - "_scripts/**"
+      - "scripts/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -17,6 +18,8 @@ on:
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
+      - "package.json"
+      - "package-lock.json"
       - "!.github/workflows/axe.yml"
       - "!.github/workflows/lighthouse-badger.yml"
       - "!.github/workflows/prettier.yml"
@@ -34,6 +37,7 @@ on:
       - "assets/**"
       - "_sass/**"
       - "_scripts/**"
+      - "scripts/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -42,6 +46,8 @@ on:
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
+      - "package.json"
+      - "package-lock.json"
       - "!.github/workflows/axe.yml"
       - "!.github/workflows/lighthouse-badger.yml"
       - "!.github/workflows/prettier.yml"
@@ -63,6 +69,13 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v5
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
@@ -86,19 +99,14 @@ jobs:
           pip3 install --upgrade nbconvert
           export JEKYLL_ENV=production
           bundle exec jekyll build
-      - name: Purge unused CSS 🧹
-        run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
-      - name: Install dependencies 📦
-        run: npm install
-      - name: Build search index 🔍
-        run: node scripts/build-search-index.js
-      - name: Drop source-path copies 🧽
-        # _pages is in Jekyll's include: list, so it also lands in _site as a copy
-        # that nothing links to. Pages' own Jekyll pass used to discard it; with
-        # .nojekyll on the branch it would be published verbatim instead.
+      - name: Drop source-path copies
         run: rm -rf _site/_pages
+      - name: Build search index
+        run: npm run build:search
+      - name: Verify search index
+        run: npm run test:search
+      - name: Purge unused CSS
+        run: npx --no-install purgecss -c purgecss.config.js
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

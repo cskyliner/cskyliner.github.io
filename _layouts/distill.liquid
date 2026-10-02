@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="{{ page.lang | default: site.lang }}">
   <head>
     {% include head.liquid %}
 
@@ -58,6 +58,7 @@
 
     <!-- Content -->
     <div class="post distill" data-pagefind-body>
+      {% include search_metadata.liquid %}
       <d-title>
         <h1>{{ page.title }}</h1>
         <p>{{ page.description }}</p>
@@ -68,7 +69,7 @@
 
       <d-article>
         {% if page.toc and page.toc.size > 0 %}
-          <d-contents>
+          <d-contents data-pagefind-ignore="all">
             <nav class="l-text figcaption">
               <h3>Contents</h3>
               {% for section in page.toc %}
@@ -89,7 +90,7 @@
           </d-contents>
 
         {% elsif page.toc == true %}
-          <d-contents>
+          <d-contents data-pagefind-ignore="all">
             <nav class="l-text figcaption">
               <h3>Contents</h3>
               {% toc %}
@@ -100,7 +101,7 @@
         {{ content }}
       </d-article>
 
-      <d-appendix>
+      <d-appendix data-pagefind-ignore="all">
         <d-footnote-list></d-footnote-list>
         <d-citation-list></d-citation-list>
       </d-appendix>

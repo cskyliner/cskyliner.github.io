@@ -1,0 +1,12 @@
+{% if page.search or page.collection == 'posts' %}
+  <meta data-pagefind-meta="title[content]" content="{{ page.title | escape }}">
+  <meta data-pagefind-filter="type[content]" content="{{ page.search_type | default: 'Notes' | escape }}">
+  {% if page.collection == 'posts' %}
+    {% for category in page.categories %}
+      {% unless category == 'notes' %}<meta data-pagefind-filter="course[content]" content="{{ category | escape }}">{% endunless %}
+    {% endfor %}
+  {% endif %}
+  {% for tag in page.tags -%}
+    <meta data-pagefind-filter="topic[content]" content="{{ tag | escape }}">
+  {%- endfor %}
+{% endif %}

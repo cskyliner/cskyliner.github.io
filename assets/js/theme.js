@@ -28,7 +28,6 @@ let applyTheme = () => {
   transTheme();
   setHighlight(theme);
   setGiscusTheme(theme);
-  setSearchTheme(theme);
   setCookieConsentTheme(theme);
   updateCalendarUrl();
 
@@ -233,17 +232,6 @@ let setVegaLiteTheme = (theme) => {
       vegaEmbed(elem, JSON.parse(jsonData));
     }
   });
-};
-
-let setSearchTheme = (theme) => {
-  const ninjaKeys = document.querySelector("ninja-keys");
-  if (!ninjaKeys) return;
-
-  if (theme === "dark") {
-    ninjaKeys.classList.add("dark");
-  } else {
-    ninjaKeys.classList.remove("dark");
-  }
 };
 
 let setCookieConsentTheme = (theme) => {

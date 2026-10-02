@@ -7,6 +7,7 @@ strip_standalone_links = ["AIIntro", "CV"]
 [links]
 
 [[notes]]
+lang = "zh-CN"
 id = "intro2ai-rnn-transformer"
 source = "AIIntro/自然语言处理-RNN&Transformer"
 destination = "_posts/2025-05-01-Introduction-to-AI-RNN-and-Transformer.md"
@@ -20,6 +21,7 @@ heading_offset = 1
 mermaid = true
 
 [[notes]]
+lang = "zh-CN"
 id = "intro2ai-statistical-lm"
 source = "AIIntro/自然语言处理-统计语言模型与词表示"
 destination = "_posts/2025-05-03-Introduction-to-AI-Statistical-Language-Models-and-Word-Representation.md"
@@ -32,6 +34,7 @@ author = "Ruolin Zuo"
 heading_offset = 1
 
 [[notes]]
+lang = "zh-CN"
 id = "intro2ai-knowledge-graph"
 source = "AIIntro/知识图谱"
 destination = "_posts/2025-05-16-Introduction-to-AI-Knowledge-Graphs.md"
@@ -44,6 +47,7 @@ author = "Ruolin Zuo"
 heading_offset = 1
 
 [[notes]]
+lang = "zh-CN"
 id = "cv-sfm"
 source = "CV/L9 Structure from Motion(SFM)"
 destination = "_posts/2025-10-28-Computer-Vision-Structure-from-Motion.md"
@@ -54,6 +58,7 @@ categories = ["CV", "notes"]
 tags = ["CV", "3D Reconstruction", "SFM"]
 
 [[notes]]
+lang = "zh-CN"
 id = "cv-mvs"
 source = "CV/L10 Multi-View Stereo(MVS)"
 destination = "_posts/2025-10-28-Computer-Vision-Multi-View-Stereo.md"
@@ -64,6 +69,7 @@ categories = ["CV", "notes"]
 tags = ["CV", "3D Reconstruction", "MVS"]
 
 [[notes]]
+lang = "zh-CN"
 id = "cv-image-generation"
 source = "CV/L20-2 Image Generation"
 destination = "_posts/2025-12-14-Computer-Vision-Image-Generation.md"

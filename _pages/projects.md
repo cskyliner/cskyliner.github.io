@@ -1,4 +1,6 @@
 ---
+search: true
+search_type: Projects
 layout: page
 permalink: /projects/
 title: Projects

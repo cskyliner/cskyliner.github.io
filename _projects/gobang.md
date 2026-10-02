@@ -1,9 +1,10 @@
 ---
 layout: page
 title: "GoBang"
+lang: en
 description: A Qt-based GoBang game project, PKU Introduction to Computing 24fall project
 github: https://github.com/cskyliner/GoBang
-redirect: https://github.com/cskyliner/GoBang
+card_url: https://github.com/cskyliner/GoBang
 importance: 2
 category: coursework
 tags:

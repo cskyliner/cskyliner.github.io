@@ -1,10 +1,11 @@
 ---
 layout: page
+lang: en
 title: "Neural Physics Subspaces"
 description: 基于 XMAKE + Imgui + OpenGL + pybind11 的神经物理子空间研究项目，复现论文 neural-physics-subspaces
 github: https://github.com/cskyliner/neural-physics-subspaces
 arxiv: https://arxiv.org/abs/2305.03846
-redirect: https://github.com/cskyliner/neural-physics-subspaces
+card_url: https://github.com/cskyliner/neural-physics-subspaces
 importance: 1
 category: coursework
 tags:

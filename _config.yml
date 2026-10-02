@@ -27,8 +27,6 @@ external_services:
 navbar_fixed: true
 footer_fixed: true
 search_enabled: true
-socials_in_search: true
-posts_in_search: true
 bib_search: true
 max_width: 930px
 serve_og_meta: false
@@ -80,7 +78,8 @@ collections:
       layout: post
     output: true
   projects:
-    output: false
+    output: true
+    permalink: /projects/:name/
   teachings:
     output: true
 markdown: kramdown
@@ -123,6 +122,7 @@ exclude:
   - README.md
   - readme_preview/
   - requirements.txt
+  - pagefind.yml
   - scripts/
   - SEO.md
   - TROUBLESHOOTING.md
@@ -152,6 +152,19 @@ plugins:
   - jekyll-twitter-plugin
   - jemoji
 defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      lang: zh-CN
+      search_type: Notes
+  - scope:
+      path: ""
+      type: projects
+    values:
+      lang: zh-CN
+      search: true
+      search_type: Projects
   - scope:
       path: assets
     values:

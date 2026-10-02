@@ -3,7 +3,7 @@ layout: page
 title: "ChronosFlow"
 description: 基于 PySide6 的跨平台时间管理应用,支持AI日程规划助手
 github: https://github.com/cskyliner/ChronosFlow
-redirect: https://github.com/cskyliner/ChronosFlow
+card_url: https://github.com/cskyliner/ChronosFlow
 importance: 1
 category: coursework
 tags:

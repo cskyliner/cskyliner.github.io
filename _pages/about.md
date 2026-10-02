@@ -1,4 +1,6 @@
 ---
+search: true
+search_type: About
 layout: about
 title: About
 permalink: /

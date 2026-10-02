@@ -1,4 +1,6 @@
 ---
+search: true
+search_type: CV
 layout: cv
 permalink: /cv/
 title: CV

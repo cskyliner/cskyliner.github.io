@@ -58,6 +58,7 @@ class NoteSpec:
     tags: tuple[str, ...]
     layout: str = "distill"
     author: str = "Kylin"
+    lang: str = "zh-CN"
     math: bool = True
     toc: bool = True
     giscus_comments: bool = True
@@ -124,6 +125,7 @@ def load_manifest(path: Path) -> tuple[Settings, list[NoteSpec]]:
                 tags=tuple(raw_note.get("tags", [])),
                 layout=raw_note.get("layout", "distill"),
                 author=raw_note.get("author", "Kylin"),
+                lang=raw_note.get("lang", "zh-CN"),
                 math=raw_note.get("math", True),
                 toc=raw_note.get("toc", True),
                 giscus_comments=raw_note.get("giscus_comments", True),
@@ -382,6 +384,7 @@ def build_frontmatter(note: NoteSpec) -> str:
     lines = [
         "---",
         f"layout: {note.layout}",
+        f"lang: {yaml_string(note.lang)}",
         f"title: {yaml_string(note.title)}",
         f"date: {note.date}",
         f"description: {yaml_string(note.description)}",

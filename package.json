@@ -1,11 +1,12 @@
 {
   "devDependencies": {
     "@shopify/prettier-plugin-liquid": "1.11.2",
-    "prettier": "3.9.9"
+    "prettier": "3.9.9",
+    "pagefind": "1.4.0",
+    "purgecss": "7.0.2"
   },
-  "dependencies": {
-    "cheerio": "^1.0.0",
-    "flexsearch": "^0.7.43",
-    "glob": "^11.0.0"
+  "scripts": {
+    "build:search": "node scripts/build-search-index.js",
+    "test:search": "node scripts/test-search-index.mjs"
   }
 }
