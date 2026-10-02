@@ -9,8 +9,8 @@ ninja.data = [{
     handler: () => {
       window.location.href = "/";
     },
-  },{id: "nav-blog",
-          title: "Blog",
+  },{id: "nav-notes",
+          title: "Notes",
           description: "Blog posts on AI, machine learning, and technology.",
           section: "Navigation",
           handler: () => {
@@ -30,21 +30,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/search/";
           },
-        },{id: "dropdown-bookshelf",
-              title: "bookshelf",
-              description: "",
-              section: "Dropdown",
-              handler: () => {
-                window.location.href = "/books/";
-              },
-            },{id: "dropdown-blog",
-              title: "blog",
-              description: "",
-              section: "Dropdown",
-              handler: () => {
-                window.location.href = "/blog/";
-              },
-            },{id: "post-计算机视觉-图像生成模型",
+        },{id: "post-计算机视觉-图像生成模型",
         
           title: "计算机视觉-图像生成模型",
         
