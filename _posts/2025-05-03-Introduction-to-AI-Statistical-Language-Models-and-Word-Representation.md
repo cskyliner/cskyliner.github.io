@@ -127,11 +127,11 @@ $$
 \text{context words} \rightarrow \text{center word}
 $$
 
-1. 当前词的上下文词语的one-hot编码 $\text{shape} = 1\times|V|$ 输入到输入层(例如当前词的前后两个词)
-2. 这些词向量分别乘以同一个矩阵 $\boldsymbol{W} \in \mathbb{R}^{|V| \times d}$（周围词向量矩阵）后分别得到各自的 $1\times d$ 向量
-3. 将这 $|V|$ 个 $1\times d$ 向量取平均（avg-Pooling）为一个 $1\times d$ 向量（这就是嵌入向量）
-4. 将这个 $1\times d$ 向量乘矩阵 $\boldsymbol{W}' \in \mathbb{R}^{d \times |V|}$ (中心词向量矩阵)，变成一个 $1\times|V|$ 向量
-5. 做Softmax分类，与真实标签 one-hot $1\times|V|$ 向量计算交叉熵损失
+1. 当前词的上下文词语的one-hot编码 $\text{shape} = 1\times\vert{}V\vert$ 输入到输入层(例如当前词的前后两个词)
+2. 这些词向量分别乘以同一个矩阵 $\boldsymbol{W} \in \mathbb{R}^{\vert{}V\vert \times d}$（周围词向量矩阵）后分别得到各自的 $1\times d$ 向量
+3. 将这 $\vert{}V\vert$ 个 $1\times d$ 向量取平均（avg-Pooling）为一个 $1\times d$ 向量（这就是嵌入向量）
+4. 将这个 $1\times d$ 向量乘矩阵 $\boldsymbol{W}' \in \mathbb{R}^{d \times \vert{}V\vert}$ (中心词向量矩阵)，变成一个 $1\times\vert{}V\vert$ 向量
+5. 做Softmax分类，与真实标签 one-hot $1\times\vert{}V\vert$ 向量计算交叉熵损失
 6. 每次前向传播之后反向传播误差，调整矩阵 $\boldsymbol{W}$ 和 $\boldsymbol{W}'$ 的值
 7. 最后学习到的模型就是通过输入上下文转化为one-hot 向量输入，最后输出预测向量进而预测中心词，即通过上下文推断中心词
 
@@ -143,8 +143,8 @@ $$
 \text{center word} \rightarrow \text{context words}
 $$
 
-1. 把中心词转成 one-hot 向量。假设中心词是 $w_t$，它的 one-hot 表示为：$x_t \in \mathbb{R}^{1 \times |V|}$
-2. 乘以输入矩阵 $W$，得到中心词的**embedding** $h = x_t W$ 。其中 $W \in \mathbb{R}^{|V| \times d}$ 。因此 $h \in \mathbb{R}^{1 \times d}$ 。由于 $x_t$ 是 one-hot，乘以 W 的效果其实就是“取出 W 中对应中心词的那一行”。也就是说：$h = v_{w_t}$.这里 $v_{w_t}$ 就是中心词 $w_t$ 的输入侧词向量。
-3. 用这个中心词向量去预测上下文词。乘输出矩阵：$u = h W'$ 其中 $W' \in \mathbb{R}^{d \times |V|}$.所以 $u \in \mathbb{R}^{1 \times |V|}$.这里的 u 是每个词作为上下文词的 score/logit。
-4. 对 u 做 softmax $p(w_o \mid w_t) = \frac{\exp(u_{w_o})}{\sum_{j=1}^{|V|} \exp(u_j)}$.这里 $w_o$ 是某一个上下文词，$w_t$ 是中心词。意思是：$\text{给定中心词 } w_t \text{，上下文词是 } w_o \text{ 的概率}$
+1. 把中心词转成 one-hot 向量。假设中心词是 $w_t$，它的 one-hot 表示为：$x_t \in \mathbb{R}^{1 \times \vert{}V\vert}$
+2. 乘以输入矩阵 $W$，得到中心词的**embedding** $h = x_t W$ 。其中 $W \in \mathbb{R}^{\vert{}V\vert \times d}$ 。因此 $h \in \mathbb{R}^{1 \times d}$ 。由于 $x_t$ 是 one-hot，乘以 W 的效果其实就是“取出 W 中对应中心词的那一行”。也就是说：$h = v_{w_t}$.这里 $v_{w_t}$ 就是中心词 $w_t$ 的输入侧词向量。
+3. 用这个中心词向量去预测上下文词。乘输出矩阵：$u = h W'$ 其中 $W' \in \mathbb{R}^{d \times \vert{}V\vert}$.所以 $u \in \mathbb{R}^{1 \times \vert{}V\vert}$.这里的 u 是每个词作为上下文词的 score/logit。
+4. 对 u 做 softmax $p(w_o \mid w_t) = \frac{\exp(u_{w_o})}{\sum_{j=1}^{\vert{}V\vert} \exp(u_j)}$.这里 $w_o$ 是某一个上下文词，$w_t$ 是中心词。意思是：$\text{给定中心词 } w_t \text{，上下文词是 } w_o \text{ 的概率}$
 5. 用真实上下文词作为标签，计算交叉熵损失。如果中心词是 `sits`，上下文词之一是 `cat`，那么模型要最大化：$p(\text{cat} \mid \text{sits})$.对应损失是：$-\log p(\text{cat} \mid \text{sits})$ .对于一个中心词对应多个上下文词时，总损失可以写成：$\mathcal{L} = -\sum_{-c \leq j \leq c, j \neq 0} \log p(w_{t+j} \mid w_t)$.其中 c 是窗口大小，$w_t$是中心词，$w_{t+j}$ 是窗口内的上下文词。

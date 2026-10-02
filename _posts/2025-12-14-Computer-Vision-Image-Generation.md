@@ -34,7 +34,7 @@ toc: true
 利用概率链式法则 (Chain Rule)：
 
 $$
-p(x) = p(x_1, x_2, \dots, x_T) = \prod_{t=1}^{T} p(x_t | x_1, \dots, x_{t-1})
+p(x) = p(x_1, x_2, \dots, x_T) = \prod_{t=1}^{T} p(x_t \vert x_1, \dots, x_{t-1})
 $$
 
 - **训练目标**：最大化似然函数 (Likelihood)。
@@ -71,15 +71,15 @@ $$
 
 VAE 是一种**潜在变量模型 (Latent Variable Model)**。它不直接拟合 $P(x)$，而是引入潜在变量 $z$，通过编码器和解码器学习数据的压缩表示。
 
-1. **Encoder (推断网络)**：$q_\phi(z|x)$，将输入 $x$ 映射到潜在空间分布（通常预测均值 $\mu$ 和方差 $\sigma$）。
-2. **Decoder (生成网络)**：$p_\theta(x|z)$，从潜在向量 $z$ 还原图像 $x$。、
+1. **Encoder (推断网络)**：$q_\phi(z\vert{}x)$，将输入 $x$ 映射到潜在空间分布（通常预测均值 $\mu$ 和方差 $\sigma$）。
+2. **Decoder (生成网络)**：$p_\theta(x\vert{}z)$，从潜在向量 $z$ 还原图像 $x$。、
 
 ### 损失函数：ELBO (Evidence Lower Bound)
 
 VAE 无法直接最大化 $\log p(x)$，转而最大化下界 (ELBO)：
 
 $$
-L(\theta, \phi; x) = \mathbb{E}_{q_\phi(z|x)}[\log p_\theta(x|z)] - D_{KL}(q_\phi(z|x) || p(z))
+L(\theta, \phi; x) = \mathbb{E}_{q_\phi(z\vert{}x)}[\log p_\theta(x\vert{}z)] - D_{KL}(q_\phi(z\vert{}x) \vert\vert p(z))
 $$
 
 这个下界来自恒等式：
@@ -87,13 +87,13 @@ $$
 $$
 \log p_\theta(x)
 =\operatorname{ELBO}(x)
-+D_{KL}\big(q_\phi(z|x)\|p_\theta(z|x)\big).
++D_{KL}\big(q_\phi(z\vert{}x)\Vert{}p_\theta(z\vert{}x)\big).
 $$
 
-KL 散度非负，所以最大化 ELBO 等价于一边提高数据似然的下界，一边让近似后验 $q_\phi(z|x)$ 接近真实后验。
+KL 散度非负，所以最大化 ELBO 等价于一边提高数据似然的下界，一边让近似后验 $q_\phi(z\vert{}x)$ 接近真实后验。
 
 - **第一项 (Reconstruction Loss)**：重构误差，希望生成的图像与原图尽可能相似。
-- **第二项 (Regularization)**：KL 散度，强迫潜在分布 $q(z|x)$ 接近标准正态分布 $\mathcal{N}(0, I)$。
+- **第二项 (Regularization)**：KL 散度，强迫潜在分布 $q(z\vert{}x)$ 接近标准正态分布 $\mathcal{N}(0, I)$。
 
 ### 关键技巧：重参数化 (Reparameterization Trick)
 
@@ -169,7 +169,7 @@ $$
 
 1. **前向过程 (Forward Process / Diffusion)**：
 
-   - $q(x_t | x_{t-1})$：逐步向数据添加高斯噪声。
+   - $q(x_t \vert x_{t-1})$：逐步向数据添加高斯噪声。
    - 当步数 $T$ 足够大时，$x_T$ 近似为纯高斯噪声 $\mathcal{N}(0, I)$。
    - 这是一个固定的马尔可夫链 (Markov Chain)，不需要学习参数。
 
@@ -185,7 +185,7 @@ $$
 
 2. **反向过程 (Inverse Process / Denoising)**：
 
-   - $p_\theta(x_{t-1} | x_t)$：训练神经网络来模拟反向去噪过程。
+   - $p_\theta(x_{t-1} \vert x_t)$：训练神经网络来模拟反向去噪过程。
    - **目标**：估计每一步加入的噪声，或者直接预测 $x_{t-1}$ 的分布（通常假设也是高斯分布）。
 
 神经网络通常参数化反向高斯分布的均值，写成：
@@ -203,7 +203,7 @@ $$
 - Loss Function：简单的均方误差 (MSE)，比较“真实添加的噪声”和“网络预测的噪声”。
 
 $$
-L_{simple} = \mathbb{E}_{t, x_0, \epsilon} [ \| \epsilon - \epsilon_\theta(x_t, t) \|^2 ]
+L_{simple} = \mathbb{E}_{t, x_0, \epsilon} [ \Vert \epsilon - \epsilon_\theta(x_t, t) \Vert^2 ]
 $$
 
 {% include figure.liquid path="/assets/img/posts/CV/L20-2-diffusion.png" class="img-fluid rounded z-depth-1" alt="L20-2-diffusion" width="900" %}

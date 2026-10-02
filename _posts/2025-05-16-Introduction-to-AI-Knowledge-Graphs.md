@@ -129,8 +129,8 @@ toc: true
 **表示**：
 
 - $V$为节点集合
-- $A \in \{0,1\}^{|V|\times|V|}$为邻接矩阵（$A_{ij}$表示节点i,j存在边）
-- $X \in \mathbb{R}^{|V|\times d}$ 为节点特征矩阵
+- $A \in \{0,1\}^{\vert{}V\vert\times\vert{}V\vert}$为邻接矩阵（$A_{ij}$表示节点i,j存在边）
+- $X \in \mathbb{R}^{\vert{}V\vert\times d}$ 为节点特征矩阵
 - $v$为$V$中的节点，$N(v)$ 是$v$邻居节点的集合，$d$为特征维度
 
 **核心**：聚合邻居节点的特征来学习中心节点的表示
