@@ -1,26 +1,15 @@
 ---
 layout: distill
-title: 自然语言处理-RNN&Transformer
+title: "Introduction to AI: RNN and Transformer"
 date: 2025-05-01 10:00:00
-description: 基于神经网络的自然语言处理方法，包括 RNN 与 Transformer 架构详解
-categories: [AIIntro, notes]
-tags: [NLP]
+description: "基于神经网络的自然语言处理方法，包括 RNN 与 Transformer 架构详解"
+categories: ["AIIntro", "notes"]
+tags: ["NLP"]
 math: true
-mermaid: true
-author: Ruolin Zuo
+author: "Ruolin Zuo"
 giscus_comments: true
-toc:
-  - name: 基于神经网络的自然语言处理方法
-  - name: 递归神经网络（RNN）
-  - name: Transformer
-    subsections:
-      - name: 注意力机制
-        subsections:
-          - name: 意义阐述
-          - name: 多头注意力
-      - name: 位置编码
-      - name: 残差连接与layer normalization
-      - name: Encoder与decoder
+toc: true
+mermaid: true
 ---
 
 ## 基于神经网络的自然语言处理方法
@@ -39,14 +28,12 @@ toc:
 
 如图：
 
-```mermaid
-flowchart LR
-    xt["xₜ"] --> RNN[RNN]
-    RNN --> ht["hₜ"]
-    ht -->|feedback| RNN
-```
+          +--------+
+          |        |
+          v        |
+    x_t → RNN → h_t
 
-可以看出递归之意，每次的输出都作为隐状态叠加新输入重新输入到RNN中。
+可以看出递归之意，每次的输出都作为隐状态叠加新输入重新输入。
 
 $$
 h_t = f_W(h_{t-1},x_t)
@@ -79,7 +66,7 @@ RNN的缺点:
 
 **为了解决**：
 
-1. **长期依赖问题**：信息随时间步"稀释"，远处信息难以传递；
+1. **长期依赖问题**：信息随时间步“稀释”，远处信息难以传递；
 2. **无法并行计算**：必须按时间顺序逐步处理，效率低下。
 
 提出了transformer架构，主要改变在seq2seq的机制
@@ -142,7 +129,7 @@ $$
 
 RNN因为递归，天然具有词汇位置顺序信息，而transformer没有，因此需要额外的机制来引入词序信息。
 
-多数采用基于正弦和余弦函数的固定编码方式
+"Attention is all you need"原文采用基于正弦和余弦函数的固定编码方式(避免使用整数等造成大小上的区别带来对注意力机制的干扰，同时使用周期能够增强泛化能力)
 
 $$
 PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d}}\right)\qquad
@@ -174,6 +161,6 @@ Encoder结构：
 
 Decoder结构：多用于文本生成
 
-子模块包括Masked 多头自注意力机制（防止看到未来词），多头交叉注意力机制，前馈神经网络，模块间用残差连接加正则化。
+子模块包括Masked多头自注意力机制（防止看到未来词），多头交叉注意力机制，前馈神经网络，模块间用残差连接加正则化。
 
 输入目标序列的已生成部分，加上前一层encoder的输出，输出一个词序列，表示某时刻（位置）输出的词，通过softmax和词表提取出下一个输出的词。

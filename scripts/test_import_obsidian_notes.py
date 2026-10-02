@@ -1,3 +1,4 @@
+import re
 import unittest
 from pathlib import Path
 
@@ -37,8 +38,7 @@ class ObsidianImportTests(unittest.TestCase):
         source = "---\ntitle: Source\n---\n\nBody\n"
         self.assertEqual(strip_frontmatter(source), "Body\n")
 
-    def test_math_is_normalized_and_survives_formatter(self):
-        source = """---
+    MATH_SOURCE = """---
 title: Source
 ---
 
@@ -49,17 +49,56 @@ title: Source
 $$ \\hat{x}_{ij}=P_iX_j $$
 """
 
-        def hostile_formatter(text: str) -> str:
-            # Protected math is absent while the Markdown formatter runs.
-            self.assertNotIn("c_i", text)
-            self.assertNotIn("hat", text)
+    def test_math_is_normalized_and_survives_formatter(self):
+        seen: list[str] = []
+
+        def formatter(text: str) -> str:
+            seen.append(text)
             return text
 
-        result = convert_note(source, self.note, self.settings, formatter=hostile_formatter)
+        result = convert_note(self.MATH_SOURCE, self.note, self.settings, formatter=formatter)
+        # First pass masks math; the alignment pass sees the real formulas again.
+        self.assertEqual(len(seen), 2)
+        self.assertNotIn("c_i", seen[0])
+        self.assertNotIn("hat", seen[0])
+        self.assertIn("c_i", seen[1])
         self.assertIn("$c_i$", result.content)
         self.assertIn("$\\alpha_i$", result.content)
         self.assertIn("$$\n\\hat{x}_{ij}=P_iX_j\n$$", result.content)
         self.assertNotIn("c*i", result.content)
+
+    def test_alignment_pass_is_discarded_when_it_rewrites_math(self):
+        calls: list[str] = []
+
+        def escaping_formatter(text: str) -> str:
+            calls.append(text)
+            if len(calls) == 2:
+                # Mimic a formatter escaping the underscore inside a formula.
+                return text.replace("$c_i$", "$c\\_i$")
+            return text
+
+        result = convert_note(
+            self.MATH_SOURCE, self.note, self.settings, formatter=escaping_formatter
+        )
+        self.assertEqual(len(calls), 2)
+        self.assertIn("$c_i$", result.content)
+        self.assertNotIn("c\\_i", result.content)
+
+    def test_trailing_whitespace_inside_display_math_is_removed(self):
+        source = """---
+title: Source
+---
+
+$$ \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} $$
+"""
+
+        def formatter(text: str) -> str:
+            return re.sub(r"[ \\t]+$", "", text, flags=re.MULTILINE)
+
+        result = convert_note(source, self.note, self.settings, formatter=formatter)
+        self.assertIn("$$\n", result.content)
+        for line in result.content.splitlines():
+            self.assertEqual(line, line.rstrip(), f"trailing whitespace survived: {line!r}")
 
     def test_obsidian_links_and_images_are_converted(self):
         result = convert_obsidian_syntax(

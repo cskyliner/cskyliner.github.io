@@ -1,21 +1,14 @@
 ---
 layout: distill
-title: 自然语言处理-统计语言模型与词表示
+title: "Introduction to AI: Statistical Language Models and Word Representation"
 date: 2025-05-03 10:00:00
-description: 统计语言模型与词表示方法，包括朴素贝叶斯、tf-idf、word2vec 等
-categories: [AIIntro, notes]
-tags: [NLP]
+description: "统计语言模型与词表示方法，包括朴素贝叶斯、tf-idf、word2vec 等"
+categories: ["AIIntro", "notes"]
+tags: ["NLP"]
 math: true
-author: Ruolin Zuo
+author: "Ruolin Zuo"
 giscus_comments: true
-toc:
-  - name: 朴素贝叶斯模型
-  - name: 信息检索 tf-idf
-  - name: 词袋模型
-  - name: 词表示
-    subsections:
-      - name: 独热表示
-      - name: 分布式表示
+toc: true
 ---
 
 ## 朴素贝叶斯模型
@@ -51,7 +44,7 @@ $$
 
 问题在于，一旦其中某个情况在样本中概率为零，整个预测将突变为零，造成失衡，因此需要使用某种手段进行“光滑”。
 
-**加法光滑**：给统计得到的每种样本数量加上一个固定值$\alpha$
+**加法光滑**：给统计得到的每种样本数量加上一个固定值$\alpha$，因为这相当于每个词都多加了$\alpha$，所以要在分母补足$\text{词汇类别数} \times \alpha$
 
 $$
 P("loved"\mid postive) = \frac{包含"loved"的正面样本数量+\alpha}{正面样本总数量+词汇类别数 \times \alpha}
@@ -59,15 +52,15 @@ $$
 
 **拉普拉斯光滑**：加法光滑的特例，令$\alpha = 1$
 
-## 信息检索 tf-idf
+## 信息检索:tf-idf
 
 **tf:词频**
 
-$tf = {n \over N}$或 $tf = \log_{10}{(n + 1)}$
+$tf = {n/N}$或 $tf = \log_{10}{(n/N + 1)}$
 
 n： 某个词在文档中出现的次数
 
-N：文档中所有词出现的次数之和
+N：文档中所有词出现的次数之和（也就是词总数，包括重复）
 
 **idf:逆文档频率**
 
@@ -95,7 +88,7 @@ $$
 2. 字典构建
 3. 构建特征向量，字典中词的出现次数
 
-缺点：字典可能极大；文本向量稀疏；关键词的重要性未体现
+缺点：仅统计词频，无次序信息；字典可能极大；文本向量稀疏；关键词的重要性未体现
 
 ## 词表示
 
@@ -126,16 +119,32 @@ $$
 
 #### word2vec（基于学习）
 
-##### CBOW模型：重点
+##### CBOW模型：
 
-1. 当前词的上下文词语的one-hot编码输入到输入层(例如当前词的前后两个词)
-2. 这些词向量分别乘以同一个矩阵$\boldsymbol{W}$（周围词向量矩阵）后分别得到各自的1 × N向量
-3. 将这些1 × N向量取平均为一个1 × N向量
-4. 将这个1 × N向量乘矩阵$\boldsymbol{W^{'}}$(中心词向量矩阵)，变成一个1 × N向量
-5. 做Softmax分类，与真实标签1 × N向量计算交叉熵损失
-6. 每次前向传播之后反向传播误差，调整矩阵$\boldsymbol{W}$ 和$\boldsymbol{W^{'}}$的值
+输入上下文预测中心词
+
+$$
+\text{context words} \rightarrow \text{center word}
+$$
+
+1. 当前词的上下文词语的one-hot编码 $\text{shape} = 1\times|V|$ 输入到输入层(例如当前词的前后两个词)
+2. 这些词向量分别乘以同一个矩阵 $\boldsymbol{W} \in \mathbb{R}^{|V| \times d}$（周围词向量矩阵）后分别得到各自的 $1\times d$ 向量
+3. 将这 $|V|$ 个 $1\times d$ 向量取平均（avg-Pooling）为一个 $1\times d$ 向量（这就是嵌入向量）
+4. 将这个 $1\times d$ 向量乘矩阵 $\boldsymbol{W}' \in \mathbb{R}^{d \times |V|}$ (中心词向量矩阵)，变成一个 $1\times|V|$ 向量
+5. 做Softmax分类，与真实标签 one-hot $1\times|V|$ 向量计算交叉熵损失
+6. 每次前向传播之后反向传播误差，调整矩阵 $\boldsymbol{W}$ 和 $\boldsymbol{W}'$ 的值
 7. 最后学习到的模型就是通过输入上下文转化为one-hot 向量输入，最后输出预测向量进而预测中心词，即通过上下文推断中心词
 
 ##### Skip-Gram模型
 
-与CBOW模型对偶，输入中心词预测上下文。略
+与CBOW模型对偶，输入中心词预测上下文。
+
+$$
+\text{center word} \rightarrow \text{context words}
+$$
+
+1. 把中心词转成 one-hot 向量。假设中心词是 $w_t$，它的 one-hot 表示为：$x_t \in \mathbb{R}^{1 \times |V|}$
+2. 乘以输入矩阵 $W$，得到中心词的**embedding** $h = x_t W$ 。其中 $W \in \mathbb{R}^{|V| \times d}$ 。因此 $h \in \mathbb{R}^{1 \times d}$ 。由于 $x_t$ 是 one-hot，乘以 W 的效果其实就是“取出 W 中对应中心词的那一行”。也就是说：$h = v_{w_t}$.这里 $v_{w_t}$ 就是中心词 $w_t$ 的输入侧词向量。
+3. 用这个中心词向量去预测上下文词。乘输出矩阵：$u = h W'$ 其中 $W' \in \mathbb{R}^{d \times |V|}$.所以 $u \in \mathbb{R}^{1 \times |V|}$.这里的 u 是每个词作为上下文词的 score/logit。
+4. 对 u 做 softmax $p(w_o \mid w_t) = \frac{\exp(u_{w_o})}{\sum_{j=1}^{|V|} \exp(u_j)}$.这里 $w_o$ 是某一个上下文词，$w_t$ 是中心词。意思是：$\text{给定中心词 } w_t \text{，上下文词是 } w_o \text{ 的概率}$
+5. 用真实上下文词作为标签，计算交叉熵损失。如果中心词是 `sits`，上下文词之一是 `cat`，那么模型要最大化：$p(\text{cat} \mid \text{sits})$.对应损失是：$-\log p(\text{cat} \mid \text{sits})$ .对于一个中心词对应多个上下文词时，总损失可以写成：$\mathcal{L} = -\sum_{-c \leq j \leq c, j \neq 0} \log p(w_{t+j} \mid w_t)$.其中 c 是窗口大小，$w_t$是中心词，$w_{t+j}$ 是窗口内的上下文词。

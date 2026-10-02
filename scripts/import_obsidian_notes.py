@@ -229,7 +229,9 @@ def mask_math(text: str, store: TokenStore) -> tuple[str, list[str]]:
     display_pattern = re.compile(r"(?<!\\)\$\$(.*?)(?<!\\)\$\$", re.DOTALL)
 
     def replace_display(match: re.Match[str]) -> str:
-        body = match.group(1).strip()
+        # Prettier strips trailing whitespace, so normalise it inside the formula too;
+        # LaTeX ignores it, and the restored math then matches Prettier's output.
+        body = re.sub(r"[ \t]+$", "", match.group(1).strip(), flags=re.MULTILINE)
         formula = f"$$\n{body}\n$$"
         formulas.append(formula)
         return f"\n\n{store.add(formula)}\n\n"
@@ -376,7 +378,8 @@ def build_frontmatter(note: NoteSpec) -> str:
     if note.mermaid:
         lines.append("mermaid: true")
     lines.extend(["---", ""])
-    return "\n".join(lines)
+    # Prettier expects a blank line between the front matter and the body.
+    return "\n".join(lines) + "\n"
 
 
 def extract_math(text: str) -> list[str]:
@@ -410,6 +413,14 @@ def convert_note(
     actual_formulas = extract_math(body)
     if actual_formulas != expected_formulas:
         raise ImportFailure("Math changed during formatting; import aborted")
+
+    # Prettier laid out tables using the masked math tokens, so align them again with the
+    # formulas restored. Keep that result only when no formula was rewritten.
+    aligned = format_markdown(body, formatter=formatter)
+    aligned = re.sub(r"\n{3,}", "\n\n", aligned).strip() + "\n"
+    if extract_math(aligned) == expected_formulas:
+        body = aligned
+
     if re.search(r"!?\[\[[^\]]+\]\]", body):
         raise ImportFailure("Unconverted Obsidian link remains in generated Markdown")
     body = code_store.restore(body)

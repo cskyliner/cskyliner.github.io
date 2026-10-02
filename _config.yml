@@ -46,6 +46,11 @@ permalink: /blog/:year/:title/
 lsi: false
 pagination:
   enabled: true
+toc:
+  # jekyll-toc defaults to h1-h6; posts use h2/h3 for structure, so keep the
+  # Contents sidebar to those two levels.
+  min_level: 2
+  max_level: 3
 related_blog_posts:
   enabled: true
   max_related: 5
