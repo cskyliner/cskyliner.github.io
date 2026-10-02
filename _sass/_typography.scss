@@ -35,6 +35,37 @@ table {
   }
 }
 
+.table-scroll {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+
+  > table {
+    min-width: 100%;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 2px;
+  }
+}
+
+.distill d-article > .table-scroll {
+  grid-column: text;
+}
+
+@media (max-width: 575px) {
+  .table-scroll {
+    th,
+    td {
+      // Keep columns readable instead of squeezing Chinese text into one character per line.
+      min-width: 8rem;
+    }
+  }
+}
+
 a,
 table.table a {
   color: var(--global-theme-color);
