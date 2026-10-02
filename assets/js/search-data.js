@@ -30,70 +30,70 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/search/";
           },
-        },{id: "post-计算机视觉-图像生成模型",
+        },{id: "post-computer-vision-image-generation",
         
-          title: "计算机视觉-图像生成模型",
+          title: "Computer Vision: Image Generation",
         
-        description: "生成模型全景图：自回归模型，VAE，GAN与扩散模型原理解析",
+        description: "生成模型全景图：自回归模型，VAE，GAN 与扩散模型原理解析",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/Image-Generation/";
+            window.location.href = "/blog/2025/Computer-Vision-Image-Generation/";
           
         },
-      },{id: "post-计算机视觉-multi-view-stereo-mvs",
+      },{id: "post-computer-vision-multi-view-stereo-mvs",
         
-          title: "计算机视觉-Multi-View Stereo (MVS)",
+          title: "Computer Vision: Multi-View Stereo (MVS)",
         
         description: "多视角立体视觉技术，从校准图片构建稠密 3D 模型",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/Multi-View-Stereo/";
+            window.location.href = "/blog/2025/Computer-Vision-Multi-View-Stereo/";
           
         },
-      },{id: "post-计算机视觉-structure-from-motion-sfm",
+      },{id: "post-computer-vision-structure-from-motion-sfm",
         
-          title: "计算机视觉-Structure from Motion (SFM)",
+          title: "Computer Vision: Structure from Motion (SFM)",
         
         description: "深入解析运动恢复结构 (SFM) 算法，探讨相机标定与三维点云重建原理",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/Structure-from-Motion/";
+            window.location.href = "/blog/2025/Computer-Vision-Structure-from-Motion/";
           
         },
-      },{id: "post-知识图谱",
+      },{id: "post-introduction-to-ai-knowledge-graphs",
         
-          title: "知识图谱",
+          title: "Introduction to AI: Knowledge Graphs",
         
         description: "知识图谱的概念、构建方法与应用，包括知识抽取、表示学习与 GNN",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/";
+            window.location.href = "/blog/2025/Introduction-to-AI-Knowledge-Graphs/";
           
         },
-      },{id: "post-自然语言处理-统计语言模型与词表示",
+      },{id: "post-introduction-to-ai-statistical-language-models-and-word-representation",
         
-          title: "自然语言处理-统计语言模型与词表示",
+          title: "Introduction to AI: Statistical Language Models and Word Representation",
         
         description: "统计语言模型与词表示方法，包括朴素贝叶斯、tf-idf、word2vec 等",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86-%E7%BB%9F%E8%AE%A1%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E4%B8%8E%E8%AF%8D%E8%A1%A8%E7%A4%BA/";
+            window.location.href = "/blog/2025/Introduction-to-AI-Statistical-Language-Models-and-Word-Representation/";
           
         },
-      },{id: "post-自然语言处理-rnn-amp-transformer",
+      },{id: "post-introduction-to-ai-rnn-and-transformer",
         
-          title: "自然语言处理-RNN&amp;Transformer",
+          title: "Introduction to AI: RNN and Transformer",
         
         description: "基于神经网络的自然语言处理方法，包括 RNN 与 Transformer 架构详解",
         section: "Posts",
         handler: () => {
           
-            window.location.href = "/blog/2025/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86-RNN&Transformer/";
+            window.location.href = "/blog/2025/Introduction-to-AI-RNN-and-Transformer/";
           
         },
       },{id: "books-the-godfather",

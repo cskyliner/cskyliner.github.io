@@ -1,0 +1,74 @@
+[settings]
+attachment_source = "CV/attachments"
+attachment_destination = "assets/img/posts/CV"
+asset_url = "/assets/img/posts/CV"
+strip_standalone_links = ["AIIntro", "CV"]
+
+[links]
+
+[[notes]]
+id = "intro2ai-rnn-transformer"
+source = "AIIntro/自然语言处理-RNN&Transformer"
+destination = "_posts/2025-05-01-Introduction-to-AI-RNN-and-Transformer.md"
+title = "Introduction to AI: RNN and Transformer"
+date = "2025-05-01 10:00:00"
+description = "基于神经网络的自然语言处理方法，包括 RNN 与 Transformer 架构详解"
+categories = ["AIIntro", "notes"]
+tags = ["NLP"]
+author = "Ruolin Zuo"
+heading_offset = 1
+mermaid = true
+
+[[notes]]
+id = "intro2ai-statistical-lm"
+source = "AIIntro/自然语言处理-统计语言模型与词表示"
+destination = "_posts/2025-05-03-Introduction-to-AI-Statistical-Language-Models-and-Word-Representation.md"
+title = "Introduction to AI: Statistical Language Models and Word Representation"
+date = "2025-05-03 10:00:00"
+description = "统计语言模型与词表示方法，包括朴素贝叶斯、tf-idf、word2vec 等"
+categories = ["AIIntro", "notes"]
+tags = ["NLP"]
+author = "Ruolin Zuo"
+heading_offset = 1
+
+[[notes]]
+id = "intro2ai-knowledge-graph"
+source = "AIIntro/知识图谱"
+destination = "_posts/2025-05-16-Introduction-to-AI-Knowledge-Graphs.md"
+title = "Introduction to AI: Knowledge Graphs"
+date = "2025-05-16 10:00:00"
+description = "知识图谱的概念、构建方法与应用，包括知识抽取、表示学习与 GNN"
+categories = ["AIIntro", "notes"]
+tags = ["GNN"]
+author = "Ruolin Zuo"
+heading_offset = 1
+
+[[notes]]
+id = "cv-sfm"
+source = "CV/L9 Structure from Motion(SFM)"
+destination = "_posts/2025-10-28-Computer-Vision-Structure-from-Motion.md"
+title = "Computer Vision: Structure from Motion (SFM)"
+date = "2025-10-28 17:30:00"
+description = "深入解析运动恢复结构 (SFM) 算法，探讨相机标定与三维点云重建原理"
+categories = ["CV", "notes"]
+tags = ["CV", "3D Reconstruction", "SFM"]
+
+[[notes]]
+id = "cv-mvs"
+source = "CV/L10 Multi-View Stereo(MVS)"
+destination = "_posts/2025-10-28-Computer-Vision-Multi-View-Stereo.md"
+title = "Computer Vision: Multi-View Stereo (MVS)"
+date = "2025-10-28 20:00:00"
+description = "多视角立体视觉技术，从校准图片构建稠密 3D 模型"
+categories = ["CV", "notes"]
+tags = ["CV", "3D Reconstruction", "MVS"]
+
+[[notes]]
+id = "cv-image-generation"
+source = "CV/L20-2 Image Generation"
+destination = "_posts/2025-12-14-Computer-Vision-Image-Generation.md"
+title = "Computer Vision: Image Generation"
+date = "2025-12-14 17:26:00"
+description = "生成模型全景图：自回归模型，VAE，GAN 与扩散模型原理解析"
+categories = ["CV", "notes"]
+tags = ["CV", "Generative Models", "Deep Learning"]
