@@ -183,3 +183,37 @@ d-appendix {
     }
   }
 }
+
+@media (min-width: 1025px) {
+  .distill d-article:has(> d-contents) {
+    position: relative;
+    // Unlike hidden, clip does not create a scroll container that traps sticky.
+    overflow-x: clip;
+    overflow-y: visible;
+
+    // Let the sidebar span the article, rather than only its first four grid rows.
+    > d-contents {
+      position: absolute;
+      top: 2rem;
+      bottom: 2rem;
+      right: 0;
+      grid-row: auto;
+      align-self: stretch;
+      z-index: 1;
+
+      nav {
+        position: sticky;
+        top: 5rem;
+        align-self: start;
+        max-height: calc(100dvh - 8rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-width: thin;
+
+        a {
+          display: block;
+        }
+      }
+    }
+  }
+}
