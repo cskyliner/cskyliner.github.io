@@ -21,7 +21,6 @@ toc: true
 
 生成模型与自监督表示学习都能使用无标签数据，但关注点不同：表示学习希望得到适合迁移的特征 $f(x)$，生成模型则希望学习数据分布并采样得到新的 $x\sim p_{data}$，也就是学习生成更符合输入数据的样本。
 {% include figure.liquid path="/assets/img/posts/CV/Screenshot-2026-07-21-at-19.41.04.png" class="img-fluid rounded z-depth-1" alt="Screenshot 2026-07-21 at 19.41.04" %}
-
 ---
 
 ## Autoregressive Models (自回归模型)
@@ -169,6 +168,7 @@ $$
 ### 两个过程
 
 1. **前向过程 (Forward Process / Diffusion)**：
+
    - $q(x_t | x_{t-1})$：逐步向数据添加高斯噪声。
    - 当步数 $T$ 足够大时，$x_T$ 近似为纯高斯噪声 $\mathcal{N}(0, I)$。
    - 这是一个固定的马尔可夫链 (Markov Chain)，不需要学习参数。
@@ -184,6 +184,7 @@ q(x_t\mid x_0)
 $$
 
 2. **反向过程 (Inverse Process / Denoising)**：
+
    - $p_\theta(x_{t-1} | x_t)$：训练神经网络来模拟反向去噪过程。
    - **目标**：估计每一步加入的噪声，或者直接预测 $x_{t-1}$ 的分布（通常假设也是高斯分布）。
 

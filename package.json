@@ -1,11 +1,11 @@
 {
   "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "^1.10.0",
-    "prettier": "^3.8.0"
+    "@shopify/prettier-plugin-liquid": "1.11.2",
+    "prettier": "3.9.9"
   },
   "dependencies": {
-    "flexsearch": "^0.7.43",
     "cheerio": "^1.0.0",
+    "flexsearch": "^0.7.43",
     "glob": "^11.0.0"
   }
 }
