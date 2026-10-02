@@ -135,7 +135,7 @@ When making changes:
   - **Fails PRs if code is not properly formatted**
   - Generates HTML diff artifact on failure
   - Must install prettier locally to avoid failures: `npm install prettier @shopify/prettier-plugin-liquid`
-- **broken-links.yml, broken-links-site.yml** – Link validation
+- **broken-links-site.yml** – Link validation on the deployed site
 - **axe.yml** – Accessibility testing
 - **codeql.yml** – Security scanning
 - **update-citations.yml** – Automatic citation updates
