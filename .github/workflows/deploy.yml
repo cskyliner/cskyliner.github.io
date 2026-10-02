@@ -94,6 +94,11 @@ jobs:
         run: npm install
       - name: Build search index 🔍
         run: node scripts/build-search-index.js
+      - name: Drop source-path copies 🧽
+        # _pages is in Jekyll's include: list, so it also lands in _site as a copy
+        # that nothing links to. Pages' own Jekyll pass used to discard it; with
+        # .nojekyll on the branch it would be published verbatim instead.
+        run: rm -rf _site/_pages
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

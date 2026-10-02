@@ -97,8 +97,13 @@ kramdown:
 include:
   - _pages
   - _scripts
+  # Jekyll skips dotfiles, so the Pages marker has to be forced through.
+  - .nojekyll
 exclude:
+  - AGENTS.md
+  - ANALYTICS.md
   - bin/
+  - CLAUDE.md
   - CONTRIBUTING.md
   - CUSTOMIZE.md
   - Dockerfile
@@ -114,8 +119,13 @@ exclude:
   - package-lock.json
   - _pages/about_einstein.md
   - purgecss.config.js
+  - QUICKSTART.md
   - README.md
   - readme_preview/
+  - requirements.txt
+  - scripts/
+  - SEO.md
+  - TROUBLESHOOTING.md
   - vendor
 keep_files:
   - CNAME
