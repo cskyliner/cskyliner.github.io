@@ -16,9 +16,11 @@ Open `/search/`. Jekyll rebuilds remove the generated bundle; run `build:search`
 
 Posts are searchable automatically. To opt in another page, set `search: true` and `search_type: About`, `CV`, or `Projects`. Templates expose `categories` as Course (except `notes`) and `tags` as Topic. The projects collection outputs detail pages, while `card_url` controls the existing card's external destination.
 
-Continuous Chinese queries are segmented with `Intl.Segmenter` before searching. Pagefind also supports quoted exact phrases.
+The Search page searches Notes only and shows a single input with contextual results. Type, Course, and Topic metadata remains in the index for future use, but the page does not expose filter controls or tag labels.
 
-Search URLs preserve `q` and repeated `type`, `course`, and `topic` parameters. Values in a group are ORed; groups are ANDed. Empty queries with selected filters browse matching pages.
+Continuous Chinese terms match continuous text. For example, `隐式` matches that phrase, while `隐 式` requires both terms anywhere in the same note. The query helper reads the six notes' cached Pagefind fragments, finds literal occurrences, and uses the index's own token boundaries to issue quoted phrase queries. This avoids incompatible browser tokenization and Pagefind's broad prefix fallback; excerpts and chapter links still come from Pagefind.
+
+Search URLs preserve `q`; refresh and browser history restore it. Quoted phrases remain supported. The empty page shows only the input.
 
 The Obsidian importer reads `lang` from each manifest note, defaulting to `zh-CN`. Changing a post's English title does not change its body language.
 

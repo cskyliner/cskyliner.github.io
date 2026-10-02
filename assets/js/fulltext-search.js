@@ -1,13 +1,12 @@
+import { searchNotes } from "./search-query.js";
+
 const root = document.getElementById("site-search");
 const input = document.getElementById("search-input");
 const results = document.getElementById("search-results");
 const status = document.getElementById("search-status");
 const more = document.getElementById("search-more");
 const retry = document.getElementById("search-retry");
-const filters = document.getElementById("search-filters");
 let attempts = 0;
-let totals = {};
-const keys = { type: "Content type", course: "Course", topic: "Topic" };
 let engine,
   matches = [],
   shown = 0,
@@ -26,21 +25,14 @@ function link(title, url) {
   if (destination.origin === location.origin) element.href = destination.href;
   return element;
 }
-function selected() {
-  const state = {};
-  for (const key of Object.keys(keys)) state[key] = [...filters.querySelectorAll(`input[data-filter="${key}"]:checked`)].map((item) => item.value);
-  return state;
-}
 function restore() {
   const parameters = new URLSearchParams(location.search);
   input.value = parameters.get("q") || "";
-  for (const box of filters.querySelectorAll("input")) box.checked = parameters.getAll(box.dataset.filter).includes(box.value);
 }
 function persist() {
   const url = new URL(location.href);
-  for (const key of ["q", ...Object.keys(keys)]) url.searchParams.delete(key);
+  for (const key of ["q", "type", "course", "topic"]) url.searchParams.delete(key);
   if (input.value.trim()) url.searchParams.set("q", input.value.trim());
-  for (const [key, values] of Object.entries(selected())) for (const value of values) url.searchParams.append(key, value);
   if (url.href !== location.href) history.pushState(null, "", url);
 }
 function excerpt(html) {
@@ -54,8 +46,6 @@ function card(data) {
   const title = node("h2");
   title.append(link(data.meta.title || "Untitled", data.url));
   article.append(title);
-  const labels = [...(data.filters.type || []), ...(data.filters.topic || [])];
-  article.append(node("p", labels.join(" · "), "search-labels"));
   const sections = data.sub_results || [];
   const sectionCard = (section) => {
     const block = node("div", null, "search-section");
@@ -93,13 +83,6 @@ function fail(error) {
   status.textContent = "Search could not load. Please retry.";
   retry.hidden = false;
 }
-function searchTerm(query) {
-  if (/^\s*".+"\s*$/.test(query) || !/[\u4e00-\u9fff]/.test(query) || !Intl.Segmenter) return query;
-  return [...new Intl.Segmenter("zh", { granularity: "word" }).segment(query)]
-    .filter((part) => part.isWordLike)
-    .map((part) => part.segment)
-    .join(" ");
-}
 async function search(save = true) {
   if (!engine) return;
   const token = ++revision;
@@ -107,31 +90,20 @@ async function search(save = true) {
   retry.hidden = true;
   more.hidden = true;
   results.replaceChildren();
-  const state = selected();
-  const active = Object.entries(state).filter(([, values]) => values.length);
   const query = input.value.trim();
-  if (!query && !active.length) {
-    for (const box of filters.querySelectorAll("input")) {
-      box.closest("label").querySelector("span").textContent = `${box.value} (${totals[box.dataset.filter]?.[box.value] ?? 0})`;
-    }
-    status.textContent = "Enter a search term or select a filter.";
+  if (!query) {
+    status.textContent = "";
     return;
   }
   status.textContent = "Searching…";
   try {
-    const response = await engine.search(query ? searchTerm(query) : null, {
-      filters: Object.fromEntries(active.map(([key, values]) => [key, { any: values }])),
-    });
+    const response = await searchNotes(engine, query);
     if (token !== revision) return;
     matches = response.results;
     shown = 0;
     status.textContent = matches.length
       ? `${matches.length} matching ${matches.length === 1 ? "page" : "pages"}`
-      : "No results. Try another term or clear a filter.";
-    for (const box of filters.querySelectorAll("input")) {
-      const count = response.filters?.[box.dataset.filter]?.[box.value] ?? 0;
-      box.closest("label").querySelector("span").textContent = `${box.value} (${count})`;
-    }
+      : "No results. Try another search term.";
     await loadMore(token);
   } catch (error) {
     if (token === revision) fail(error);
@@ -145,24 +117,6 @@ async function initialize() {
     bundle.searchParams.set("attempt", String(++attempts));
     engine = await import(bundle.href);
     await engine.init();
-    const available = await engine.filters();
-    totals = available;
-    filters.replaceChildren();
-    for (const [key, label] of Object.entries(keys)) {
-      if (!available[key]) continue;
-      const group = node("fieldset");
-      group.append(node("legend", label));
-      for (const [value, count] of Object.entries(available[key]).sort(([a], [b]) => a.localeCompare(b))) {
-        const option = node("label");
-        const box = node("input");
-        box.type = "checkbox";
-        box.value = value;
-        box.dataset.filter = key;
-        option.append(box, node("span", `${value} (${count})`));
-        group.append(option);
-      }
-      filters.append(group);
-    }
     restore();
     await search(false);
   } catch (error) {
@@ -185,19 +139,8 @@ input.addEventListener("input", () => {
   clearTimeout(timer);
   timer = setTimeout(() => search(), 200);
 });
-filters.addEventListener("change", () => {
-  clearTimeout(timer);
-  search();
-});
 more.addEventListener("click", () => loadMore());
 retry.addEventListener("click", () => (engine ? search(false) : initialize()));
-document.getElementById("search-clear").addEventListener("click", () => {
-  clearTimeout(timer);
-  input.value = "";
-  for (const box of filters.querySelectorAll("input")) box.checked = false;
-  search();
-  input.focus();
-});
 window.addEventListener("popstate", () => {
   clearTimeout(timer);
   restore();

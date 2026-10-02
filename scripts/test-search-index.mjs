@@ -9,6 +9,8 @@ const source = fs.readFileSync(path.join(site, "pagefind/pagefind.js"), "utf8");
 const pagefind = await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
 await pagefind.options({ basePath: "http://local.test/pagefind/", baseUrl: "/" });
 await pagefind.init("zh");
+const querySource = fs.readFileSync(path.join(site, "assets/js/search-query.js"), "utf8");
+const { searchNotes } = await import(`data:text/javascript;base64,${Buffer.from(querySource).toString("base64")}`);
 const filters = await pagefind.filters();
 assert.equal(filters.type.Notes, 6);
 assert.equal(filters.type.Projects, 4);
@@ -68,4 +70,24 @@ assert(
   )
 );
 assert.equal((await search('"zzzznomatchtestzzzz"')).length, 0);
+async function queryNotes(query) {
+  const response = await searchNotes(pagefind, query);
+  return Promise.all(response.results.map((result) => result.data()));
+}
+const implicit = await queryNotes("隐式");
+assert.deepEqual(
+  implicit.map((result) => result.meta.title),
+  ["Computer Vision: Image Generation"]
+);
+assert(implicit[0].excerpt.replace(/<\/?mark>/g, "").includes("隐式"));
+assert(!implicit[0].sub_results.some((section) => section.title === "总结" && !section.excerpt.replace(/<\/?mark>/g, "").includes("隐式")));
+assert((await queryNotes("隐 式")).some((result) => result.meta.title.includes("RNN")));
+assert.deepEqual(
+  (await queryNotes("Transformer 位置编码")).map((result) => result.meta.title),
+  ["Introduction to AI: RNN and Transformer"]
+);
+assert((await queryNotes("位置编码")).every((result) => result.content.includes("位置编码")));
+assert((await queryNotes("清晰 似然")).some((result) => result.meta.title.includes("Image Generation")));
+assert.equal((await queryNotes("不存在的完整中文词组")).length, 0);
+assert((await queryNotes("GoBang")).every((result) => result.filters.type.includes("Notes")));
 console.log("Search acceptance passed: 12 pages, full text beyond 5000 characters, Chinese/English, excerpts, anchors, filters, exclusions.");
