@@ -1,0 +1,1 @@
+(()=>{const e=document.currentScript.dataset.searchUrl;document.addEventListener("keydown",t=>{if((t.ctrlKey||t.metaKey)&&"k"===t.key.toLowerCase()&&!t.isComposing){t.preventDefault();const n=document.getElementById("search-input");n?n.focus():window.location.assign(e)}})})();
