@@ -2,9 +2,46 @@
 attachment_source = "CV/attachments"
 attachment_destination = "assets/img/posts/CV"
 asset_url = "/assets/img/posts/CV"
-strip_standalone_links = ["CV"]
+strip_standalone_links = ["AIIntro", "CV"]
 
 [links]
+
+[[notes]]
+id = "nlp-rnn-transformer"
+source = "AIIntro/自然语言处理-RNN&Transformer"
+destination = "_posts/2025-05-01-自然语言处理-RNN&Transformer.md"
+title = "自然语言处理-RNN&Transformer"
+date = "2025-05-01 10:00:00"
+description = "基于神经网络的自然语言处理方法，包括 RNN 与 Transformer 架构详解"
+categories = ["AIIntro", "notes"]
+tags = ["NLP"]
+author = "Ruolin Zuo"
+heading_offset = 1
+mermaid = true
+
+[[notes]]
+id = "nlp-statistical-language-models"
+source = "AIIntro/自然语言处理-统计语言模型与词表示"
+destination = "_posts/2025-05-03-自然语言处理-统计语言模型与词表示.md"
+title = "自然语言处理-统计语言模型与词表示"
+date = "2025-05-03 10:00:00"
+description = "统计语言模型与词表示方法，包括朴素贝叶斯、tf-idf、word2vec 等"
+categories = ["AIIntro", "notes"]
+tags = ["NLP"]
+author = "Ruolin Zuo"
+heading_offset = 1
+
+[[notes]]
+id = "knowledge-graph"
+source = "AIIntro/知识图谱"
+destination = "_posts/2025-05-16-知识图谱.md"
+title = "知识图谱"
+date = "2025-05-16 10:00:00"
+description = "知识图谱的概念、构建方法与应用，包括知识抽取、表示学习与 GNN"
+categories = ["AIIntro", "notes"]
+tags = ["GNN"]
+author = "Ruolin Zuo"
+heading_offset = 1
 
 [[notes]]
 id = "sfm"
@@ -28,7 +65,7 @@ tags = ["CV", "3D Reconstruction", "MVS"]
 
 [[notes]]
 id = "image-generation"
-source = "CV/Image Generation"
+source = "CV/L20-2 Image Generation"
 destination = "_posts/2025-12-14-Image-Generation.md"
 title = "计算机视觉-图像生成模型"
 date = "2025-12-14 17:26:00"

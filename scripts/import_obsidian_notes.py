@@ -61,6 +61,8 @@ class NoteSpec:
     math: bool = True
     toc: bool = True
     giscus_comments: bool = True
+    mermaid: bool = False
+    heading_offset: int = 0
 
 
 @dataclass(frozen=True)
@@ -125,6 +127,8 @@ def load_manifest(path: Path) -> tuple[Settings, list[NoteSpec]]:
                 math=raw_note.get("math", True),
                 toc=raw_note.get("toc", True),
                 giscus_comments=raw_note.get("giscus_comments", True),
+                mermaid=raw_note.get("mermaid", False),
+                heading_offset=raw_note.get("heading_offset", 0),
             )
         )
 
@@ -200,6 +204,23 @@ def mask_fenced_code(text: str, store: TokenStore) -> str:
 def mask_inline_code(text: str, store: TokenStore) -> str:
     pattern = re.compile(r"(`+)([^\n]*?)(\1)")
     return pattern.sub(lambda match: store.add(match.group(0)), text)
+
+
+def shift_headings(text: str, offset: int) -> str:
+    """Shift Markdown ATX headings while fenced code is protected."""
+
+    if offset == 0:
+        return text
+    if offset < 0:
+        raise ImportFailure("heading_offset cannot be negative")
+
+    def replace(match: re.Match[str]) -> str:
+        level = len(match.group(1)) + offset
+        if level > 6:
+            raise ImportFailure("heading_offset would create a heading deeper than level 6")
+        return "#" * level + match.group(2)
+
+    return re.sub(r"(?m)^(#{1,6})([ \t]+)", replace, text)
 
 
 def mask_math(text: str, store: TokenStore) -> tuple[str, list[str]]:
@@ -351,9 +372,10 @@ def build_frontmatter(note: NoteSpec) -> str:
         f"author: {yaml_string(note.author)}",
         f"giscus_comments: {str(note.giscus_comments).lower()}",
         f"toc: {str(note.toc).lower()}",
-        "---",
-        "",
     ]
+    if note.mermaid:
+        lines.append("mermaid: true")
+    lines.extend(["---", ""])
     return "\n".join(lines)
 
 
@@ -378,6 +400,7 @@ def convert_note(
     math_store = TokenStore("MATH")
     body = mask_fenced_code(body, code_store)
     body = mask_inline_code(body, code_store)
+    body = shift_headings(body, note.heading_offset)
     body, expected_formulas = mask_math(body, math_store)
     converted = convert_obsidian_syntax(body, settings)
     body = format_markdown(converted.content, formatter=formatter)

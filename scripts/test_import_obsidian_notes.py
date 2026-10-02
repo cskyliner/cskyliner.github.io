@@ -2,10 +2,13 @@ import unittest
 from pathlib import Path
 
 from import_obsidian_notes import (
+    DEFAULT_MANIFEST,
     NoteSpec,
     Settings,
     convert_note,
     convert_obsidian_syntax,
+    load_manifest,
+    shift_headings,
     strip_frontmatter,
 )
 
@@ -87,6 +90,16 @@ link = "[[still-not-a-link]]"
         self.assertIn("`$not_math$ [[not-a-link]]`", result.content)
         self.assertIn('value = "$still_not_math$"', result.content)
         self.assertIn('link = "[[still-not-a-link]]"', result.content)
+
+    def test_heading_offset_does_not_touch_protected_code(self):
+        self.assertEqual(shift_headings("# Topic\n## Detail\n", 1), "## Topic\n### Detail\n")
+
+    def test_manifest_covers_all_six_posts_without_course_prefixes(self):
+        _, notes = load_manifest(DEFAULT_MANIFEST)
+        self.assertEqual(len(notes), 6)
+        for note in notes:
+            self.assertNotRegex(note.destination.name, r"(?:^|-)L\d")
+            self.assertNotRegex(note.title, r"^L\d")
 
 
 if __name__ == "__main__":
