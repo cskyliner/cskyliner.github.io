@@ -100,6 +100,22 @@ $$ \\begin{bmatrix} 1 & 0 \\\\ 0 & 1 \\end{bmatrix} $$
         for line in result.content.splitlines():
             self.assertEqual(line, line.rstrip(), f"trailing whitespace survived: {line!r}")
 
+    def test_pipes_inside_math_are_escaped_for_kramdown(self):
+        source = """---
+title: Source
+---
+
+- **Encoder**：$q_\\phi(z|x)$，映射到潜在分布。
+
+$$ L = \\| \\epsilon - \\epsilon_\\theta \\|^2 $$
+"""
+
+        result = convert_note(source, self.note, self.settings, formatter=lambda text: text)
+        # Braces only where a letter follows, so \Vert^2 keeps its superscript on the bar.
+        self.assertIn("$q_\\phi(z\\vert{}x)$", result.content)
+        self.assertIn("$$\nL = \\Vert \\epsilon - \\epsilon_\\theta \\Vert^2\n$$", result.content)
+        self.assertNotIn("z|x", result.content)
+
     def test_obsidian_links_and_images_are_converted(self):
         result = convert_obsidian_syntax(
             "[[CV]]\n[[Published Note|read this]] [[Draft Note]] ![[image 1.png|640x320]]\n",

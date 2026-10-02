@@ -223,6 +223,23 @@ def shift_headings(text: str, offset: int) -> str:
     return re.sub(r"(?m)^(#{1,6})([ \t]+)", replace, text)
 
 
+def escape_pipes(formula: str) -> str:
+    """Keep kramdown from reading a math pipe as a table cell separator.
+
+    kramdown turns any line containing a bare "|" into a table row, which splits
+    inline math and leaves MathJax nothing to render. \\vert and \\Vert are the same
+    glyphs as | and \\|, so the escape is invisible in the rendered output.
+    """
+
+    def replace(match: re.Match[str]) -> str:
+        command = "\\Vert" if match.group(1) else "\\vert"
+        letter = match.group(2)
+        # A control word must not run into a following letter ("\vertx" is undefined).
+        return f"{command}{{}}{letter}" if letter else command
+
+    return re.sub(r"(\\?)\|([A-Za-z]?)", replace, formula)
+
+
 def mask_math(text: str, store: TokenStore) -> tuple[str, list[str]]:
     formulas: list[str] = []
 
@@ -232,7 +249,7 @@ def mask_math(text: str, store: TokenStore) -> tuple[str, list[str]]:
         # Prettier strips trailing whitespace, so normalise it inside the formula too;
         # LaTeX ignores it, and the restored math then matches Prettier's output.
         body = re.sub(r"[ \t]+$", "", match.group(1).strip(), flags=re.MULTILINE)
-        formula = f"$$\n{body}\n$$"
+        formula = escape_pipes(f"$$\n{body}\n$$")
         formulas.append(formula)
         return f"\n\n{store.add(formula)}\n\n"
 
@@ -244,7 +261,7 @@ def mask_math(text: str, store: TokenStore) -> tuple[str, list[str]]:
         body = match.group(1).strip()
         if not body:
             raise ImportFailure("Empty inline math expression")
-        formula = f"${body}$"
+        formula = escape_pipes(f"${body}$")
         formulas.append(formula)
         return store.add(formula)
 
