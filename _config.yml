@@ -40,7 +40,7 @@ pirsch_analytics: null
 openpanel_analytics: null
 google_site_verification: null
 bing_site_verification: null
-blog_name: Blog
+blog_name: Notes
 blog_description: A blank space for writing and thinking.
 permalink: /blog/:year/:title/
 lsi: false

@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /blog/
-title: Blog
+title: Notes
 description: Blog posts on AI, machine learning, and technology.
 nav: true
 nav_order: 1

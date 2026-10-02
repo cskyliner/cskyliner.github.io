@@ -40,6 +40,31 @@ body.sticky-bottom-footer {
   }
 }
 
+.visitor-map {
+  clear: both;
+  width: 240px;
+  max-width: 100%;
+  margin: 2rem auto 0;
+  text-align: center;
+
+  a {
+    display: block;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  figcaption {
+    margin-top: 0.5rem;
+    color: var(--global-text-color-light);
+    font-size: 0.75rem;
+  }
+}
+
 // Content layout uses Bootstrap's grid system with responsive columns
 // Main content flows naturally through container-mt-5 and Bootstrap grid classes
 // See _layouts/default.liquid and _includes/projects.liquid for examples
