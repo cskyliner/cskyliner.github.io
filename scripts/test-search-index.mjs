@@ -90,4 +90,29 @@ assert((await queryNotes("位置编码")).every((result) => result.content.inclu
 assert((await queryNotes("清晰 似然")).some((result) => result.meta.title.includes("Image Generation")));
 assert.equal((await queryNotes("不存在的完整中文词组")).length, 0);
 assert((await queryNotes("GoBang")).every((result) => result.filters.type.includes("Notes")));
+for (const query of ["transfer", "TRANSFER", "contrastive", "nonexistentwordxyz", "transfer 隐式", "Transformer transfer"]) {
+  assert.equal((await queryNotes(query)).length, 0, `Unmatched English query must not fall back to initials: ${query}`);
+}
+for (const query of ["Transformer", "transformer", "trans", "VAE", "GAN", "CS231n"]) {
+  const results = await queryNotes(query);
+  assert(results.length > 0, `Existing English query must match: ${query}`);
+  for (const result of results) {
+    assert(result.content.toLowerCase().includes(query.toLowerCase()));
+    for (const section of result.sub_results) {
+      const highlights = [...section.excerpt.matchAll(/<mark>(.*?)<\/mark>/g)].map((match) => match[1].toLowerCase());
+      assert(
+        highlights.some((text) => text.includes(query.toLowerCase())),
+        `Excerpt must highlight the English query: ${query}`
+      );
+    }
+  }
+}
+const englishPhrase = await queryNotes('"Latent Diffusion"');
+assert.deepEqual(
+  englishPhrase.map((result) => result.meta.title),
+  ["Computer Vision: Image Generation"]
+);
+const transformer = (await queryNotes("Transformer")).find((result) => result.meta.title.includes("RNN"));
+assert(transformer.sub_results.length > 1, "English searches must retain multiple chapter hits");
+assert((await queryNotes("VAE GAN")).some((result) => result.meta.title.includes("Image Generation")));
 console.log("Search acceptance passed: 12 pages, full text beyond 5000 characters, Chinese/English, excerpts, anchors, filters, exclusions.");

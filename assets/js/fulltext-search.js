@@ -1,5 +1,3 @@
-import { searchNotes } from "./search-query.js";
-
 const root = document.getElementById("site-search");
 const input = document.getElementById("search-input");
 const results = document.getElementById("search-results");
@@ -8,6 +6,7 @@ const more = document.getElementById("search-more");
 const retry = document.getElementById("search-retry");
 let attempts = 0;
 let engine,
+  searchNotes,
   matches = [],
   shown = 0,
   revision = 0,
@@ -115,6 +114,9 @@ async function initialize() {
   try {
     const bundle = new URL(root.dataset.bundle, location.href);
     bundle.searchParams.set("attempt", String(++attempts));
+    const queryModule = new URL(root.dataset.queryModule, location.href);
+    queryModule.searchParams.set("attempt", String(attempts));
+    searchNotes = (await import(queryModule.href)).searchNotes;
     engine = await import(bundle.href);
     await engine.init();
     restore();

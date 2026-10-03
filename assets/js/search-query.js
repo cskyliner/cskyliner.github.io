@@ -42,16 +42,41 @@ function phrases(raw, term) {
 }
 
 export async function searchNotes(engine, query) {
-  if (!hasChinese(query)) return engine.search(query, { filters: { type: "Notes" } });
   const notes = await catalog(engine);
   const terms = [...query.matchAll(/"([^"]+)"|(\S+)/gu)].map((match) => ({ text: match[1] || match[2], quoted: !!match[1] }));
   // Prefer the most specific Chinese term when choosing excerpts and ranking.
   terms.sort((a, b) => Number(hasChinese(b.text)) - Number(hasChinese(a.text)) || b.text.length - a.text.length);
   const groups = await Promise.all(
     terms.map(async ({ text, quoted }) => {
-      if (!hasChinese(text)) return (await engine.search(quoted ? `"${text}"` : text, { filters: { type: "Notes" } })).results;
+      // Validate every language before searching: Pagefind otherwise shortens
+      // unmatched words (e.g. "transfer") down to unrelated tokens (e.g. "t").
       const candidates = notes.filter(({ data }) => data.content.toLowerCase().includes(text.toLowerCase()));
       const ids = new Set(candidates.map(({ id }) => id));
+      if (!ids.size) return [];
+      if (!hasChinese(text) && !quoted) {
+        // Keep useful prefix completion and multiple chapter hits, but reject
+        // any fallback locations that do not highlight the actual input.
+        const response = await engine.search(text, { filters: { type: "Notes" } });
+        const highlightsTerm = (html) =>
+          [...html.matchAll(/<mark>(.*?)<\/mark>/g)].some((match) => match[1].toLowerCase().includes(text.toLowerCase()));
+        const matches = await Promise.all(
+          response.results
+            .filter(({ id }) => ids.has(id))
+            .map(async (result) => {
+              const data = await result.data();
+              const sections = data.sub_results.filter((section) => highlightsTerm(section.excerpt));
+              if (!sections.length && !highlightsTerm(data.excerpt)) return null;
+              const accurate = {
+                ...data,
+                sub_results: sections,
+                excerpt: highlightsTerm(data.excerpt) ? data.excerpt : sections[0].excerpt,
+              };
+              return { ...result, data: async () => accurate };
+            })
+        );
+        const results = matches.filter(Boolean);
+        if (results.length) return results;
+      }
       const variants = new Set(candidates.flatMap(({ data }) => [...phrases(data.raw_content, text)]));
       const responses = await Promise.all([...variants].map((phrase) => engine.search(phrase, { filters: { type: "Notes" } })));
       return [

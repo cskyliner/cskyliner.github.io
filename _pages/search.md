@@ -7,7 +7,7 @@ nav: true
 nav_order: 5
 ---
 
-<div id="site-search" data-bundle="{{ '/pagefind/pagefind.js' | relative_url }}">
+<div id="site-search" data-bundle="{{ '/pagefind/pagefind.js' | relative_url }}" data-query-module="{{ '/assets/js/search-query.js' | relative_url | bust_file_cache }}">
   <label for="search-input" class="sr-only">Search notes</label>
   <input id="search-input" type="search" placeholder="Search notes…" autocomplete="off" autofocus aria-controls="search-results">
   <p id="search-status" role="status" aria-live="polite">Loading search…</p>
